@@ -12,6 +12,7 @@
     "dev": "node scripts/serve.mjs .preview",
     "dev:data": "node scripts/serve.mjs dist",
     "labels:setup": "node scripts/setup-labels.mjs",
+    "seed:issues": "node scripts/seed-existing-issues.mjs",
     "seed:catalog": "node scripts/seed-catalog.mjs",
     "seed:verify": "node scripts/seed-catalog.mjs --verify-only",
     "test": "node --test"

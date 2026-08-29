@@ -1,6 +1,7 @@
 import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { enrichCatalogApps, generateCatalogPages } from "./catalog-pages.mjs";
+import { resolveRepository } from "./repository.mjs";
 
 const args = process.argv.slice(2);
 const argument = (name, fallback) => {
@@ -12,7 +13,7 @@ const root = process.cwd();
 const dataDirectory = path.resolve(root, argument("--data", "data/apps"));
 const outputDirectory = path.resolve(root, argument("--output", "dist"));
 const reactionsPath = path.resolve(root, argument("--reactions", ".generated/reactions.json"));
-const repositoryArg = argument("--repository", process.env.GITHUB_REPOSITORY || process.env.VITRINEADT_REPOSITORY || null);
+const repositoryArg = argument("--repository", null);
 const isDemo = dataDirectory.includes(`${path.sep}tests${path.sep}fixtures${path.sep}`);
 
 function validateRecord(record, fileName) {
@@ -47,13 +48,13 @@ async function loadReactions() {
   }
 }
 
+const repository = await resolveRepository({ candidate: repositoryArg, root });
+const repositoryURL = repository ? `https://github.com/${repository}` : null;
 await rm(outputDirectory, { recursive: true, force: true });
 await mkdir(path.join(outputDirectory, "data"), { recursive: true });
 await mkdir(path.join(outputDirectory, "icons"), { recursive: true });
 
 const [records, reactions] = await Promise.all([loadJSONFiles(dataDirectory), loadReactions()]);
-const repository = repositoryArg;
-const repositoryURL = repository ? `https://github.com/${repository}` : null;
 
 function likesForRecord(record) {
   const issues = new Set();

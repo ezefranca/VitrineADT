@@ -159,6 +159,8 @@ Após rodar, abra:
 - `npm run build`: build oficial com `data/apps`.
 - `npm run bootstrap:to-data`: gera catálogo canônico a partir do bootstrap.
 - `npm run preview:real`: prévia local com dados reais.
+- `npm run seed:issues`: cria/associa issues reais no GitHub para apps existentes (sem `issueURL`) e atualiza `data/apps`.
+  - Use `GITHUB_TOKEN` com escopo `issues: write`.
 - `npm run labels:setup`: cria/atualiza labels de workflow.
 - `npm run seed:catalog`: dispara seed completo.
 - `npm run seed:verify`: valida consistência do manifest/seed sem gravar.
@@ -187,4 +189,3 @@ O projeto é independente e sem vínculo com a rede de origem do podcast.
 ## Status
 
 Projeto ativo, com automação de seed, submissão, moderação, build e publicação em produção para a galeria de apps do segmento.
-

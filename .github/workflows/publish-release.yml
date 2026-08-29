@@ -4,6 +4,9 @@ on:
   release:
     types: [published]
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -25,6 +28,12 @@ jobs:
     steps:
       - name: Obter a versão publicada
         uses: actions/checkout@v3
+
+      - name: Criar/atualizar issues reais para apps sem issue
+        run: npm run seed:issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
 
       - name: Atualizar totais de reações positivas
         run: node scripts/fetch-reactions.mjs --output .generated/reactions.json
@@ -51,6 +60,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Fechar as Issues publicadas sem bloqueá-las
+        if: github.event_name == 'release'
         continue-on-error: true
         run: node scripts/mark-published.mjs dist/data/apps.json
         env:

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
   issues: write
@@ -24,7 +24,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Obter a versão publicada
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Atualizar totais de reações positivas
         run: node scripts/fetch-reactions.mjs --output .generated/reactions.json
@@ -35,7 +35,9 @@ jobs:
         run: node scripts/build-site.mjs --reactions .generated/reactions.json
 
       - name: Configurar GitHub Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAGES_ADMIN_TOKEN || github.token }}
         with:
           enablement: true
 

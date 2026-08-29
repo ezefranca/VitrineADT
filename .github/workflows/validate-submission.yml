@@ -21,7 +21,7 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: Obter o validador
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Verificar episódio, notas e transcrição
         run: node scripts/validate-submission.mjs

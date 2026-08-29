@@ -1,0 +1,67 @@
+name: Sincronizar curtidas
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  issues: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Obter a versão publicada
+        uses: actions/checkout@v3
+
+      - name: Atualizar totais de reações positivas
+        run: node scripts/fetch-reactions.mjs --output .generated/reactions.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verificar se há mudanças reais de likes
+        id: likes_check
+        run: node scripts/likes-changed.mjs --reactions .generated/reactions.json --old dist/data/apps.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: Criar/atualizar issues reais para apps sem issue
+        if: steps.likes_check.outputs.likes_changed == 'true'
+        run: npm run seed:issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: Gerar o site estático
+        if: steps.likes_check.outputs.likes_changed == 'true'
+        run: node scripts/build-site.mjs --reactions .generated/reactions.json
+
+      - name: Configurar GitHub Pages
+        if: steps.likes_check.outputs.likes_changed == 'true'
+        uses: actions/configure-pages@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAGES_ADMIN_TOKEN || github.token }}
+
+      - name: Preparar arquivos para publicação
+        if: steps.likes_check.outputs.likes_changed == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+      - name: Publicar no GitHub Pages
+        if: steps.likes_check.outputs.likes_changed == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4

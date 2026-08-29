@@ -13,6 +13,7 @@
     "dev:data": "node scripts/serve.mjs dist",
     "labels:setup": "node scripts/setup-labels.mjs",
     "seed:issues": "node scripts/seed-existing-issues.mjs",
+    "likes:changed": "node scripts/likes-changed.mjs --old dist/data/apps.json",
     "seed:catalog": "node scripts/seed-catalog.mjs",
     "seed:verify": "node scripts/seed-catalog.mjs --verify-only",
     "test": "node --test"

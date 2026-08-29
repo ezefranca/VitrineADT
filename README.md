@@ -164,6 +164,7 @@ Após rodar, abra:
 - `npm run labels:setup`: cria/atualiza labels de workflow.
 - `npm run seed:catalog`: dispara seed completo.
 - `npm run seed:verify`: valida consistência do manifest/seed sem gravar.
+- `npm run likes:changed`: consulta reações do GitHub e detecta se os likes mudaram em relação ao `dist/data/apps.json`.
 
 ## Observações de arquitetura de produção
 

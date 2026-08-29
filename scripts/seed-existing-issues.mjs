@@ -85,11 +85,19 @@ async function getIssue(repository, candidate, record) {
   try {
     const issue = await githubRequest(`/repos/${repository}/issues/${candidate}`);
     if (String(issue.body ?? "").includes(markerForRecord(record))) return issue;
-    if (String(issue.title ?? "").includes(`[App]: ${record.name}`)) return issue;
+    if (String(issue.title ?? "") === `[App]: ${record.name}`) return issue;
   } catch {
     // sem correspondência, segue para criação
   }
+  const searchIssue = await findIssueByTitle(repository, record);
+  if (searchIssue) return searchIssue;
   return null;
+}
+
+async function findIssueByTitle(repository, record) {
+  const query = encodeURIComponent(`repo:${repository} is:issue in:title "[App]: ${record.name}"`);
+  const response = await githubRequest(`/search/issues?q=${query}`);
+  return response.items?.find((issue) => String(issue.title ?? "") === `[App]: ${record.name}`) ?? null;
 }
 
 async function main() {

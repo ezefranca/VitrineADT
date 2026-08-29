@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#f5f5f7">
+    <meta name="description" content="Uma galeria comunitária dos aplicativos apresentados no segmento Amigos do Área de Transferência.">
+    <meta property="og:title" content="VitrineADT — Apps dos ouvintes do ADT">
+    <meta property="og:description" content="Descubra aplicativos apresentados no segmento Amigos do Área de Transferência.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <title>VitrineADT — Apps dos ouvintes do ADT</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./app.js" type="module"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+    <header class="site-header">
+      <a class="wordmark" href="./" aria-label="VitrineADT, página inicial">
+        <span>Vitrine</span><span class="wordmark-accent">ADT</span>
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="./#recentes" aria-current="page">Apps</a>
+        <a href="./sobre.html">Sobre</a>
+        <a href="./como-funciona.html">Como funciona</a>
+      </nav>
+      <a class="button button-compact submit-link" href="#" hidden>Enviar um app</a>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Apps dos ouvintes do ADT</p>
+          <h1 id="hero-title">Boas ideias feitas por quem está do outro lado do fone.</h1>
+          <p class="hero-description">Uma coleção independente dos aplicativos apresentados no segmento “Amigos do Área de Transferência”, com seus criadores e o episódio em que cada projeto apareceu.</p>
+          <div class="hero-actions">
+            <a class="button submit-link" href="#" hidden>Enviar meu aplicativo</a>
+            <a class="text-link" href="#recentes">Ver as novidades <span aria-hidden="true">↓</span></a>
+          </div>
+          <p class="hero-meta"><strong id="app-count">0</strong> aplicativos · <strong id="episode-count">0</strong> episódios representados</p>
+          <p class="eligibility-note">A galeria aceita apenas aplicativos apresentados no segmento “Amigos do Área de Transferência”. Seu app ainda não apareceu.</p>
+        </div>
+      </section>
+
+      <div class="demo-notice" id="demo-notice" hidden>Prévia com conteúdo de demonstração. Nenhum destes registros será publicado.</div>
+
+      <section class="shelf" id="recentes" aria-labelledby="recent-title">
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow">Direto do podcast</p>
+            <h2 id="recent-title">Últimas menções</h2>
+          </div>
+          <p>Os aplicativos dos episódios mais recentes aparecem sempre primeiro.</p>
+        </header>
+        <div class="card-row" id="recent-list"></div>
+      </section>
+
+      <section class="shelf shelf-highlight" id="mais-curtidos" aria-labelledby="popular-title">
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow">Escolhas da comunidade</p>
+            <h2 id="popular-title">Favoritos dos ouvintes</h2>
+          </div>
+          <p id="likes-freshness">As curtidas são reações 👍 nas Issues do GitHub.</p>
+        </header>
+        <div class="card-row" id="popular-list"></div>
+      </section>
+
+      <section class="shelf" id="descubra" aria-labelledby="discover-title">
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow">Fora da ordem</p>
+            <h2 id="discover-title">Vale conhecer</h2>
+          </div>
+          <p>Uma pequena seleção que muda todos os dias.</p>
+        </header>
+        <div class="card-row" id="discover-list"></div>
+      </section>
+
+      <section class="directory" id="todos" aria-labelledby="directory-title">
+        <header class="directory-heading">
+          <div>
+            <p class="eyebrow">Tudo em um lugar</p>
+            <h2 id="directory-title">A coleção inteira</h2>
+          </div>
+          <label class="search-field">
+            <span class="visually-hidden">Buscar aplicativos</span>
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="search" type="search" aria-label="Buscar aplicativos" placeholder="Buscar por app ou desenvolvedor…" autocomplete="off">
+          </label>
+        </header>
+        <div class="filters" id="platform-filters" aria-label="Filtrar por plataforma"></div>
+        <p class="result-count" id="result-count" aria-live="polite"></p>
+        <div class="pagination" id="directory-pagination" hidden>
+          <button class="pagination-button" id="prev-page" type="button" aria-label="Página anterior">Anterior</button>
+          <span class="page-indicator" id="page-indicator" aria-live="polite"></span>
+          <button class="pagination-button" id="next-page" type="button" aria-label="Próxima página">Próxima</button>
+        </div>
+        <div class="directory-grid" id="all-list"></div>
+        <div class="empty-state" id="empty-state" hidden>
+          <strong>Nenhum aplicativo por aqui.</strong>
+          <span>Tente outra busca ou remova o filtro de plataforma.</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-intro">
+        <a class="wordmark" href="./" aria-label="VitrineADT, página inicial"><span>Vitrine</span><span class="wordmark-accent">ADT</span></a>
+        <p>Uma galeria independente dos aplicativos apresentados em “Amigos do Área de Transferência”.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Informações sobre a VitrineADT">
+        <a href="./sobre.html">Sobre</a>
+        <a href="./como-funciona.html">Como funciona</a>
+        <a href="./termos.html">Termos de uso</a>
+        <a href="./privacidade.html">Privacidade</a>
+        <a href="./codigo-de-conduta.html">Código de conduta</a>
+        <a class="report-link" href="#" hidden>Reportar um aplicativo</a>
+        <a class="removal-link" href="#" hidden>Solicitar remoção</a>
+      </nav>
+      <div class="footer-legal">
+        <a class="github-link" href="https://github.com/" target="_blank" rel="external noopener noreferrer" aria-label="Ver o projeto VitrineADT no GitHub">
+          <img src="https://github.githubassets.com/favicons/favicon.svg" alt="" width="20" height="20">
+          <span>GitHub</span>
+        </a>
+        <p>© 2026 VitrineADT. Projeto independente.</p>
+        <p>Os direitos autorais, marcas, ícones e demais materiais de cada aplicativo pertencem aos respectivos titulares.</p>
+        <p>Gigahertz e Área de Transferência pertencem à Rede Gigahertz LTDA. Apple, App Store, Google e Google Play são marcas de seus respectivos titulares. Não há afiliação ou endosso.</p>
+      </div>
+    </footer>
+
+    <template id="app-card-template">
+      <article class="app-card">
+        <div class="card-topline">
+          <div class="app-icon" aria-hidden="true"></div>
+          <div class="platform-badges"></div>
+        </div>
+        <div class="card-copy">
+          <h3></h3>
+          <p class="developer"></p>
+          <p class="description"></p>
+        </div>
+        <div class="episode-reference"></div>
+        <div class="card-actions">
+          <a class="app-link" target="_blank" rel="noopener noreferrer">Ver app <span aria-hidden="true">↗</span></a>
+          <a class="like-link" target="_blank" rel="noopener noreferrer" title="Curtir reagindo com positivo na Issue do GitHub">
+            <span aria-hidden="true">👍</span>
+            <span class="like-count"></span>
+          </a>
+          <a class="report-link card-report-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Reportar</a>
+        </div>
+      </article>
+    </template>
+  </body>
+</html>

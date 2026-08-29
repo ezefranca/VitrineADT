@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "seriestrend-48901",
+  "name": "SeriesTrend",
+  "description": "Acompanha séries e ajuda a organizar o que assistir.",
+  "developer": {
+    "name": "Marcelo Lopes",
+    "url": ""
+  },
+  "platforms": [
+    "ios",
+    "android"
+  ],
+  "links": {
+    "website": "https://page-seriestrend.vercel.app",
+    "appStore": "https://apps.apple.com/br/app/seriestrend/id6746804882",
+    "googlePlay": "https://play.google.com/store/apps/details?id=com.celolopes.seriestrend",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/seriestrend-48901.jpg",
+    "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/f4/be/15/f4be155d-6aba-a67e-96fb-3e32b164ffcc/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 489,
+      "title": "489: Like Cru ou Like Pasteurizado",
+      "date": "2026-08-02",
+      "url": "https://gigahertz.fm/podcasts/adt/489",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 48901
+    }
+  ],
+  "submission": {
+    "issue": 48901,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

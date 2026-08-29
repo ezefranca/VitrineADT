@@ -1,0 +1,60 @@
+name: Reportar um aplicativo
+description: Avise sobre segurança, privacidade, fraude, informação enganosa ou link problemático.
+title: "[Denúncia]: "
+labels:
+  - report/new
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Esta Issue é pública. Não publique credenciais, dados pessoais ou sensíveis, documentos privados, código de exploração nem instruções que aumentem um risco de segurança. Para uma vulnerabilidade urgente, procure primeiro o canal privado de segurança do desenvolvedor.
+
+  - type: input
+    id: app
+    attributes:
+      label: Aplicativo ou Issue da entrada
+      description: Informe o nome do aplicativo e, se possível, o link da entrada ou da Issue usada para curtir.
+      placeholder: Nome do app — https://github.com/…/issues/123
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Tipo de problema
+      options:
+        - Segurança ou privacidade
+        - Identidade falsa ou uso indevido de marca
+        - Informação enganosa ou desatualizada
+        - Link quebrado ou destino suspeito
+        - Conteúdo ilegal ou violação de direitos
+        - Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: O que aconteceu
+      description: Descreva fatos verificáveis, sem expor pessoas ou dados desnecessários.
+      placeholder: Explique o problema, quando foi observado e por que a entrada deve ser revisada.
+    validations:
+      required: true
+
+  - type: input
+    id: evidence
+    attributes:
+      label: Evidência pública
+      description: Opcional. Use uma página oficial, aviso da loja, política pública ou outra fonte que qualquer moderador possa consultar.
+      placeholder: https://…
+
+  - type: checkboxes
+    id: declarations
+    attributes:
+      label: Confirmações
+      options:
+        - label: Não incluí credenciais, dados pessoais ou sensíveis, documentos privados nem detalhes que facilitem exploração.
+          required: true
+        - label: Entendo que a denúncia será revisada por uma pessoa e não implica remoção automática.
+          required: true
+

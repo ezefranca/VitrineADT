@@ -1,0 +1,25 @@
+name: Verificar código do projeto
+
+on:
+  pull_request:
+    paths:
+      - ".github/**"
+      - "data/**"
+      - "scripts/**"
+      - "site/**"
+      - "tests/**"
+      - "package.json"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: npm test
+      - run: npm run check
+      - run: npm run build:demo
+

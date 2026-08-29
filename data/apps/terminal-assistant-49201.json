@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "terminal-assistant-49201",
+  "name": "Terminal Assistant",
+  "description": "Automatiza tarefas com gatilhos e eventos do Home Assistant e uma visão em Kanban.",
+  "developer": {
+    "name": "João Ferretti",
+    "url": ""
+  },
+  "platforms": [
+    "linux"
+  ],
+  "links": {
+    "website": "https://github.com/joaoferrete/terminal-assistant",
+    "appStore": "",
+    "googlePlay": "",
+    "source": "https://github.com/joaoferrete/terminal-assistant"
+  },
+  "icon": {
+    "path": "/icons/terminal-assistant-49201.png",
+    "sourceURL": "https://opengraph.githubassets.com/ac412673677d1821b94a0435f23d2a4411188be575b4d320411ce6fc304b0d51/joaoferrete/terminal-assistant"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 492,
+      "title": "492: Personalização Safada",
+      "date": "2026-08-22",
+      "url": "https://gigahertz.fm/podcasts/adt/492",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 49201
+    }
+  ],
+  "submission": {
+    "issue": 49201,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

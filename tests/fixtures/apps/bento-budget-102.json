@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "bento-budget-102",
+  "name": "Bento Budget",
+  "description": "Um jeito simples de visualizar despesas recorrentes e planejar o mês.",
+  "developer": { "name": "Caio Nunes", "url": "https://example.com" },
+  "platforms": ["android", "ios"],
+  "links": { "website": "https://example.com/bento", "appStore": null, "googlePlay": null, "source": null },
+  "icon": null,
+  "mentions": [{ "show": "adt", "episode": 492, "title": "492: Episódio de demonstração", "date": "2026-08-21", "url": "https://gigahertz.fm/podcasts/adt/492", "evidence": ["notes-link"], "submissionIssue": 102 }],
+  "submission": { "issue": 102, "issueURL": "https://github.com/example/gallery/issues/102", "submittedBy": "demo", "approvedBy": "demo", "approvedAt": "2026-08-21T12:00:00Z" },
+  "likes": 18,
+  "updatedAt": "2026-08-21T12:00:00Z"
+}

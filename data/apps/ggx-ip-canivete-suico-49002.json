@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "ggx-ip-canivete-suico-49002",
+  "name": "GGX IP — Canivete Suíço",
+  "description": "Reúne ferramentas para analisar Wi‑Fi, Bluetooth, rede local e possíveis vulnerabilidades.",
+  "developer": {
+    "name": "Winston “Gordo Geek”",
+    "url": "https://www.ggx.app.br/"
+  },
+  "platforms": [
+    "ios",
+    "ipados",
+    "macos",
+    "android",
+    "tvos"
+  ],
+  "links": {
+    "website": "https://www.ggx.app.br/meu-ip-detalhado.html",
+    "appStore": "",
+    "googlePlay": "",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/ggx-ip-canivete-suico-49002.png",
+    "sourceURL": "https://www.ggx.app.br/assets/icons/meu-ip-detalhado.png"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 490,
+      "title": "490: Corgi À Milanesa",
+      "date": "2026-08-07",
+      "url": "https://gigahertz.fm/podcasts/adt/490",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 49002
+    }
+  ],
+  "submission": {
+    "issue": 49002,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

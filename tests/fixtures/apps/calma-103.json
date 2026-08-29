@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "calma-103",
+  "name": "Calma",
+  "description": "Exercícios curtos de respiração para pequenas pausas ao longo do dia.",
+  "developer": { "name": "Estúdio Breve", "url": "https://example.com" },
+  "platforms": ["web", "ios"],
+  "links": { "website": "https://example.com/calma", "appStore": null, "googlePlay": null, "source": null },
+  "icon": null,
+  "mentions": [{ "show": "adt", "episode": 491, "title": "491: Episódio de demonstração", "date": "2026-08-14", "url": "https://gigahertz.fm/podcasts/adt/491", "evidence": ["transcript-name"], "submissionIssue": 103 }],
+  "submission": { "issue": 103, "issueURL": "https://github.com/example/gallery/issues/103", "submittedBy": "demo", "approvedBy": "demo", "approvedAt": "2026-08-14T12:00:00Z" },
+  "likes": 51,
+  "updatedAt": "2026-08-14T12:00:00Z"
+}

@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "podcast": "adt",
+    "segment": "Amigos do Área de Transferência",
+    "episodeCount": 10,
+    "firstEpisode": 484,
+    "lastEpisode": 493
+  },
+  "episodes": [
+    {
+      "episode": 493,
+      "apps": [
+        {
+          "name": "TakeControl",
+          "mentionTerms": ["Lucas Assis"],
+          "developer": { "name": "Lucas Assis", "url": "" },
+          "description": "Organiza despesas compartilhadas de viagens, grupos e eventos.",
+          "platforms": ["ios", "android"],
+          "links": { "website": "https://gettakecontrol.app/", "appStore": "https://apps.apple.com/us/app/takecontrol-expense-splitter/id6790032465", "googlePlay": "https://play.google.com/store/apps/details?id=com.takecontrol.app", "source": "" }
+        },
+        {
+          "name": "CinemaTV",
+          "developer": { "name": "Danilo Requena", "url": "" },
+          "description": "Beta público para acompanhar filmes e séries e enviar feedback durante o desenvolvimento.",
+          "platforms": ["ios"],
+          "links": { "website": "https://testflight.apple.com/join/Qk0YsUJQ", "appStore": "", "googlePlay": "", "source": "" }
+        }
+      ]
+    },
+    {
+      "episode": 492,
+      "apps": [
+        {
+          "name": "Terminal Assistant",
+          "developer": { "name": "João Ferretti", "url": "" },
+          "description": "Automatiza tarefas com gatilhos e eventos do Home Assistant e uma visão em Kanban.",
+          "platforms": ["linux"],
+          "links": { "website": "https://github.com/joaoferrete/terminal-assistant", "appStore": "", "googlePlay": "", "source": "https://github.com/joaoferrete/terminal-assistant" }
+        },
+        {
+          "name": "Tô No Corre",
+          "developer": { "name": "Juliana Moca", "url": "" },
+          "description": "Ajuda motoristas de aplicativo a registrar corridas, custos, gorjetas e ganhos mensais.",
+          "platforms": ["android"],
+          "links": { "website": "https://play.google.com/store/apps/details?id=com.aistudio.tonocorre.vaxjql", "appStore": "", "googlePlay": "https://play.google.com/store/apps/details?id=com.aistudio.tonocorre.vaxjql", "source": "" }
+        },
+        {
+          "name": "Lura",
+          "developer": { "name": "Melissa Quaresma e equipe Lura", "url": "" },
+          "description": "Adapta treinos de corrida às diferentes fases do ciclo menstrual.",
+          "platforms": ["ios"],
+          "links": { "website": "https://testflight.apple.com/join/ZHN1MUVY", "appStore": "", "googlePlay": "", "source": "" }
+        }
+      ]
+    },
+    {
+      "episode": 491,
+      "apps": [
+        {
+          "name": "DerDieDas",
+          "developer": { "name": "Diego Trevisan", "url": "" },
+          "description": "Ajuda a aprender artigos e palavras em alemão com definições, pronúncia e exemplos.",
+          "platforms": ["ios"],
+          "links": { "website": "https://testflight.apple.com/join/EHXNZxTR", "appStore": "", "googlePlay": "", "source": "" }
+        },
+        {
+          "name": "RecapMed",
+          "developer": { "name": "Wilton Fernandes da Silva", "url": "" },
+          "description": "Diário de saúde para acompanhar medicamentos, sintomas e episódios de dor.",
+          "platforms": ["ios", "ipados"],
+          "links": { "website": "https://apps.apple.com/br/app/lembrete-de-rem%C3%A9dios-recapmed/id6787512948", "appStore": "https://apps.apple.com/br/app/lembrete-de-rem%C3%A9dios-recapmed/id6787512948", "googlePlay": "", "source": "" }
+        }
+      ]
+    },
+    {
+      "episode": 490,
+      "apps": [
+        {
+          "name": "Docker OSX",
+          "iconURL": "https://raw.githubusercontent.com/dockur/macos/master/.github/logo.png",
+          "developer": { "name": "João Victor Valério", "url": "" },
+          "description": "Executa macOS em um contêiner Linux usando Docker e KVM.",
+          "platforms": ["linux"],
+          "links": { "website": "https://github.com/dockur/macos", "appStore": "", "googlePlay": "", "source": "https://github.com/dockur/macos" }
+        },
+        {
+          "name": "GGX IP — Canivete Suíço",
+          "iconURL": "https://www.ggx.app.br/assets/icons/meu-ip-detalhado.png",
+          "mentionTerms": ["Winston", "Gordo Geek", "canivete suíço"],
+          "developer": { "name": "Winston “Gordo Geek”", "url": "https://www.ggx.app.br/" },
+          "description": "Reúne ferramentas para analisar Wi‑Fi, Bluetooth, rede local e possíveis vulnerabilidades.",
+          "platforms": ["ios", "ipados", "macos", "android", "tvos"],
+          "links": { "website": "https://www.ggx.app.br/meu-ip-detalhado.html", "appStore": "", "googlePlay": "", "source": "" }
+        },
+        {
+          "name": "Não é um Date",
+          "developer": { "name": "Vinicius Marques", "url": "" },
+          "description": "Jogo de perguntas para duas pessoas conversarem, sem conta ou login.",
+          "platforms": ["ios", "ipados"],
+          "links": { "website": "https://apps.apple.com/us/app/n%C3%A3o-%C3%A9-um-date/id6786474950", "appStore": "https://apps.apple.com/us/app/n%C3%A3o-%C3%A9-um-date/id6786474950", "googlePlay": "", "source": "" }
+        },
+        {
+          "name": "Escolhe Aí",
+          "mentionTerms": ["Escolhe aí", "Vinícius Carvalho"],
+          "developer": { "name": "Vinicius Marques", "url": "" },
+          "description": "Ajuda a escolher onde comer usando filtros, categorias e restaurantes próximos.",
+          "platforms": ["ios", "ipados"],
+          "links": { "website": "https://apps.apple.com/br/app/escolhe-a%C3%AD/id6756740977", "appStore": "https://apps.apple.com/br/app/escolhe-a%C3%AD/id6756740977", "googlePlay": "", "source": "" }
+        },
+        {
+          "name": "BoCaps",
+          "developer": { "name": "Harrison Dryde", "url": "" },
+          "description": "Alterna o texto selecionado entre maiúsculas e minúsculas com dois toques no Caps Lock.",
+          "platforms": ["windows"],
+          "links": { "website": "https://apps.microsoft.com/detail/9p7f5f7k8r5d?hl=en-US&gl=BR", "appStore": "", "googlePlay": "", "source": "" }
+        }
+      ]
+    },
+    {
+      "episode": 489,
+      "apps": [
+        {
+          "name": "SeriesTrend",
+          "developer": { "name": "Marcelo Lopes", "url": "" },
+          "description": "Acompanha séries e ajuda a organizar o que assistir.",
+          "platforms": ["ios", "android"],
+          "links": { "website": "https://page-seriestrend.vercel.app", "appStore": "https://apps.apple.com/br/app/seriestrend/id6746804882", "googlePlay": "https://play.google.com/store/apps/details?id=com.celolopes.seriestrend", "source": "" }
+        },
+        {
+          "name": "Conversor de medidas",
+          "developer": { "name": "Daniel", "url": "" },
+          "description": "Converte unidades rapidamente, com foco em quem vive ou viaja para outro país.",
+          "platforms": ["web"],
+          "links": { "website": "https://conversormedidas-five.vercel.app", "appStore": "", "googlePlay": "", "source": "" }
+        }
+      ]
+    },
+    {
+      "episode": 488,
+      "apps": [
+        {
+          "name": "ReaderVCard",
+          "developer": { "name": "Daniel Pires", "url": "https://readervcard.danizavtz.com.br" },
+          "description": "Digitaliza cartões de visita em papel com OCR local, sem conta e sem enviar dados a um servidor.",
+          "platforms": ["ios", "android"],
+          "links": { "website": "https://readervcard.danizavtz.com.br", "appStore": "https://apps.apple.com/br/app/readervcard/id6780714134", "googlePlay": "https://play.google.com/store/apps/details?id=com.danielpires.visitcardreader", "source": "" }
+        },
+        {
+          "name": "Fôlego",
+          "developer": { "name": "Marco Queiroz", "url": "" },
+          "description": "Mostra a faixa de condicionamento cardiorrespiratório do Apple Watch como complicação nativa.",
+          "platforms": ["ios", "watchos"],
+          "links": { "website": "https://apps.apple.com/br/app/folego/id6793222648", "appStore": "https://apps.apple.com/br/app/folego/id6793222648", "googlePlay": "", "source": "" }
+        }
+      ]
+    },
+    {
+      "episode": 487,
+      "apps": [
+        {
+          "name": "Runnio",
+          "mentionTerms": ["Olivia", "Rúnio", "Runio"],
+          "developer": { "name": "Olivia Sanchez", "url": "" },
+          "description": "Acompanha a quilometragem e o desgaste dos tênis usados em corridas.",
+          "platforms": ["ios", "ipados"],
+          "links": { "website": "https://apps.apple.com/br/app/runnio/id6780606573", "appStore": "https://apps.apple.com/br/app/runnio/id6780606573", "googlePlay": "", "source": "" }
+        }
+      ]
+    },
+    { "episode": 486, "apps": [] },
+    { "episode": 485, "apps": [] },
+    {
+      "episode": 484,
+      "apps": [
+        {
+          "name": "Unfurl",
+          "iconURL": "https://ph-files.imgix.net/64072aff-2206-44bc-a4fc-f3b8a4388792.png?auto=format&fit=crop&h=512&w=512",
+          "developer": { "name": "Johnny Wellington", "url": "" },
+          "description": "Extensão do Safari que remove rastreadores e links AMP localmente, sem conta ou servidor.",
+          "platforms": ["ios", "ipados", "macos"],
+          "links": { "website": "https://www.producthunt.com/products/unfurl-strip-the-junk-keep-the-link", "appStore": "", "googlePlay": "", "source": "" }
+        }
+      ]
+    }
+  ]
+}

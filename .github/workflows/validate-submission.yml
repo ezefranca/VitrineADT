@@ -1,0 +1,30 @@
+name: Validar submissão
+
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: validate-issue-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    if: >-
+      (github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'submission/new')) ||
+      (github.event.action == 'labeled' && github.event.label.name == 'validation/recheck')
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Obter o validador
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Verificar episódio, notas e transcrição
+        run: node scripts/validate-submission.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

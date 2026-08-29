@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "pingo-106",
+  "name": "Pingo",
+  "description": "Lembretes de hidratação discretos para quem passa o dia concentrado.",
+  "developer": { "name": "Oficina Dois", "url": "https://example.com" },
+  "platforms": ["linux", "windows"],
+  "links": { "website": "https://example.com/pingo", "appStore": null, "googlePlay": null, "source": null },
+  "icon": null,
+  "mentions": [{ "show": "adt", "episode": 480, "title": "480: Episódio de demonstração", "date": "2026-05-29", "url": "https://gigahertz.fm/podcasts/adt/480", "evidence": ["notes-link"], "submissionIssue": 106 }],
+  "submission": { "issue": 106, "issueURL": "https://github.com/example/gallery/issues/106", "submittedBy": "demo", "approvedBy": "demo", "approvedAt": "2026-05-29T12:00:00Z" },
+  "likes": 12,
+  "updatedAt": "2026-05-29T12:00:00Z"
+}

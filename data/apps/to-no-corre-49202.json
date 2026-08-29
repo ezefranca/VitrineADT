@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "to-no-corre-49202",
+  "name": "Tô No Corre",
+  "description": "Ajuda motoristas de aplicativo a registrar corridas, custos, gorjetas e ganhos mensais.",
+  "developer": {
+    "name": "Juliana Moca",
+    "url": ""
+  },
+  "platforms": [
+    "android"
+  ],
+  "links": {
+    "website": "https://play.google.com/store/apps/details?id=com.aistudio.tonocorre.vaxjql",
+    "appStore": "",
+    "googlePlay": "https://play.google.com/store/apps/details?id=com.aistudio.tonocorre.vaxjql",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/to-no-corre-49202.png",
+    "sourceURL": "https://play-lh.googleusercontent.com/niqQF05h2EomuCQXxHH4Ed_zHnlDOJVznwJ0LWLB3lOHJ2GYajRsigb6yMzItKcaW4q4xk3I0lobkHPBXfMU=s0-br30"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 492,
+      "title": "492: Personalização Safada",
+      "date": "2026-08-22",
+      "url": "https://gigahertz.fm/podcasts/adt/492",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 49202
+    }
+  ],
+  "submission": {
+    "issue": 49202,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

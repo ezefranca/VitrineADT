@@ -1,0 +1,46 @@
+name: Processar pedido de remoção
+
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: catalog-writes
+  cancel-in-progress: false
+
+jobs:
+  remove:
+    if: >-
+      (github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'removal/new')) ||
+      (github.event.action == 'labeled' && github.event.label.name == 'removal/approved')
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Obter o catálogo mais recente
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 1
+
+      - name: Verificar o pedido e atualizar a fila
+        id: removal
+        run: node scripts/process-removal.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verificar o catálogo atualizado
+        if: steps.removal.outputs.removed == 'true'
+        run: npm test && npm run build
+
+      - name: Gravar a remoção aprovada
+        if: steps.removal.outputs.removed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- data/apps public/icons
+          git commit -m "catalog: remove app requested in issue #${{ github.event.issue.number }}"
+          git push

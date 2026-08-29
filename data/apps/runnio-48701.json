@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "runnio-48701",
+  "name": "Runnio",
+  "description": "Acompanha a quilometragem e o desgaste dos tênis usados em corridas.",
+  "developer": {
+    "name": "Olivia Sanchez",
+    "url": ""
+  },
+  "platforms": [
+    "ios",
+    "ipados"
+  ],
+  "links": {
+    "website": "https://apps.apple.com/br/app/runnio/id6780606573",
+    "appStore": "https://apps.apple.com/br/app/runnio/id6780606573",
+    "googlePlay": "",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/runnio-48701.jpg",
+    "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/3a/c2/7e/3ac27eab-5204-ef73-b4ca-ade0af7b3361/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 487,
+      "title": "487: Ironman Só Para Baixinhos",
+      "date": "2026-07-18",
+      "url": "https://gigahertz.fm/podcasts/adt/487",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 48701
+    }
+  ],
+  "submission": {
+    "issue": 48701,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

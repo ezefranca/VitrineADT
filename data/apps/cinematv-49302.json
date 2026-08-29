@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "cinematv-49302",
+  "name": "CinemaTV",
+  "description": "Beta público para acompanhar filmes e séries e enviar feedback durante o desenvolvimento.",
+  "developer": {
+    "name": "Danilo Requena",
+    "url": ""
+  },
+  "platforms": [
+    "ios"
+  ],
+  "links": {
+    "website": "https://testflight.apple.com/join/Qk0YsUJQ",
+    "appStore": "",
+    "googlePlay": "",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/cinematv-49302.png",
+    "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/93/ed/7a/93ed7a70-ec5f-c096-a321-cccf5350957b/CinemaTV-0-0-1x_U007epad-0-1-sRGB-85-220.png/512x512bb-80.png"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 493,
+      "title": "493: Dança Macaquinho",
+      "date": "2026-08-28",
+      "url": "https://gigahertz.fm/podcasts/adt/493",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 49302
+    }
+  ],
+  "submission": {
+    "issue": 49302,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

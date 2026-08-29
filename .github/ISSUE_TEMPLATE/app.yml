@@ -1,0 +1,125 @@
+name: Enviar um aplicativo
+description: Envie um aplicativo apresentado no segmento Amigos do Área de Transferência.
+title: "[App]: "
+labels:
+  - submission/new
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por contribuir com a galeria. Antes de enviar, confirme que o aplicativo foi apresentado no segmento “Amigos do Área de Transferência” e que você pode autorizar a exibição das informações e do ícone.
+
+  - type: input
+    id: app_name
+    attributes:
+      label: Nome do aplicativo
+      placeholder: "Exemplo: Meu Aplicativo"
+    validations:
+      required: true
+
+  - type: input
+    id: developer_name
+    attributes:
+      label: Desenvolvedor ou equipe
+      placeholder: Nome público da pessoa ou equipe
+    validations:
+      required: true
+
+  - type: input
+    id: developer_url
+    attributes:
+      label: Site do desenvolvedor
+      description: Opcional.
+      placeholder: https://exemplo.com
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição curta
+      description: Explique em uma ou duas frases o que o aplicativo faz. Máximo recomendado de 200 caracteres.
+      placeholder: Um aplicativo que ajuda a…
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: platforms
+    attributes:
+      label: Plataformas
+      options:
+        - label: Web
+        - label: iOS
+        - label: iPadOS
+        - label: macOS
+        - label: Android
+        - label: Windows
+        - label: Linux
+        - label: watchOS
+        - label: tvOS
+        - label: Outra
+    validations:
+      required: true
+
+  - type: input
+    id: website_url
+    attributes:
+      label: Link principal do aplicativo
+      placeholder: https://meuapp.com
+    validations:
+      required: true
+
+  - type: input
+    id: app_store_url
+    attributes:
+      label: Link da App Store
+      description: Opcional.
+      placeholder: https://apps.apple.com/…
+
+  - type: input
+    id: google_play_url
+    attributes:
+      label: Link do Google Play
+      description: Opcional.
+      placeholder: https://play.google.com/store/apps/details?id=…
+
+  - type: input
+    id: source_url
+    attributes:
+      label: Código-fonte
+      description: Opcional.
+      placeholder: https://github.com/…
+
+  - type: input
+    id: episode
+    attributes:
+      label: Número do episódio do Área de Transferência
+      placeholder: "493"
+    validations:
+      required: true
+
+  - type: textarea
+    id: mention_hint
+    attributes:
+      label: Ajuda para encontrar a menção
+      description: Informe um horário aproximado, trecho da conversa ou como o nome foi pronunciado. Opcional, mas recomendado.
+      placeholder: Por volta de 00:08:30, no bloco de aplicativos dos ouvintes…
+
+  - type: input
+    id: icon_url
+    attributes:
+      label: Link direto para o ícone
+      description: Obrigatório se o app não tiver uma página pública na App Store ou no Google Play. Use PNG, JPEG ou WebP.
+      placeholder: https://meuapp.com/icon.png
+
+  - type: checkboxes
+    id: declarations
+    attributes:
+      label: Declarações
+      options:
+        - label: O aplicativo foi criado por mim, por minha equipe ou tenho autorização do desenvolvedor para esta submissão.
+          required: true
+        - label: Autorizo a publicação das informações enviadas e a exibição do ícone na galeria.
+          required: true
+        - label: Confirmo que o aplicativo foi apresentado no segmento “Amigos do Área de Transferência” do episódio informado.
+          required: true
+        - label: A submissão não contém dados pessoais, credenciais ou outras informações secretas.
+          required: true

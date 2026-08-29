@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "id": "unfurl-48401",
+  "name": "Unfurl",
+  "description": "Extensão do Safari que remove rastreadores e links AMP localmente, sem conta ou servidor.",
+  "developer": {
+    "name": "Johnny Wellington",
+    "url": ""
+  },
+  "platforms": [
+    "ios",
+    "ipados",
+    "macos"
+  ],
+  "links": {
+    "website": "https://www.producthunt.com/products/unfurl-strip-the-junk-keep-the-link",
+    "appStore": "",
+    "googlePlay": "",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/unfurl-48401.webp",
+    "sourceURL": "https://ph-files.imgix.net/64072aff-2206-44bc-a4fc-f3b8a4388792.png?auto=format&fit=crop&h=512&w=512"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 484,
+      "title": "484: Um Clipboard de Pessoas",
+      "date": "2026-06-29",
+      "url": "https://gigahertz.fm/podcasts/adt/484",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 48401
+    }
+  ],
+  "submission": {
+    "issue": 48401,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "lura-49203",
+  "name": "Lura",
+  "description": "Adapta treinos de corrida às diferentes fases do ciclo menstrual.",
+  "developer": {
+    "name": "Melissa Quaresma e equipe Lura",
+    "url": ""
+  },
+  "platforms": [
+    "ios"
+  ],
+  "links": {
+    "website": "https://testflight.apple.com/join/ZHN1MUVY",
+    "appStore": "",
+    "googlePlay": "",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/lura-49203.png",
+    "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/1f/71/28/1f712852-3aba-11f7-7eb4-6ed41c4a7b8c/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb-80.png"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 492,
+      "title": "492: Personalização Safada",
+      "date": "2026-08-22",
+      "url": "https://gigahertz.fm/podcasts/adt/492",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 49203
+    }
+  ],
+  "submission": {
+    "issue": 49203,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

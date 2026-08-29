@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "conversor-de-medidas-48902",
+  "name": "Conversor de medidas",
+  "description": "Converte unidades rapidamente, com foco em quem vive ou viaja para outro país.",
+  "developer": {
+    "name": "Daniel",
+    "url": ""
+  },
+  "platforms": [
+    "web"
+  ],
+  "links": {
+    "website": "https://conversormedidas-five.vercel.app",
+    "appStore": "",
+    "googlePlay": "",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/conversor-de-medidas-48902.png",
+    "sourceURL": "https://conversormedidas-five.vercel.app/apple-touch-icon.png"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 489,
+      "title": "489: Like Cru ou Like Pasteurizado",
+      "date": "2026-08-02",
+      "url": "https://gigahertz.fm/podcasts/adt/489",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 48902
+    }
+  ],
+  "submission": {
+    "issue": 48902,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

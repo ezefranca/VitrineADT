@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "takecontrol-49301",
+  "name": "TakeControl",
+  "description": "Organiza despesas compartilhadas de viagens, grupos e eventos.",
+  "developer": {
+    "name": "Lucas Assis",
+    "url": ""
+  },
+  "platforms": [
+    "ios",
+    "android"
+  ],
+  "links": {
+    "website": "https://gettakecontrol.app/",
+    "appStore": "https://apps.apple.com/us/app/takecontrol-expense-splitter/id6790032465",
+    "googlePlay": "https://play.google.com/store/apps/details?id=com.takecontrol.app",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/takecontrol-49301.jpg",
+    "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/88/c9/63/88c96394-ad12-ab9f-fed6-d455f71e7b08/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 493,
+      "title": "493: Dança Macaquinho",
+      "date": "2026-08-28",
+      "url": "https://gigahertz.fm/podcasts/adt/493",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 49301
+    }
+  ],
+  "submission": {
+    "issue": 49301,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

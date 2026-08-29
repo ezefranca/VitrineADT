@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "aurora-notes-101",
+  "name": "Aurora Notes",
+  "description": "Notas rápidas com organização visual e sincronização entre dispositivos.",
+  "developer": { "name": "Marina Costa", "url": "https://example.com" },
+  "platforms": ["ios", "macos"],
+  "links": { "website": "https://example.com/aurora", "appStore": null, "googlePlay": null, "source": null },
+  "icon": null,
+  "mentions": [{ "show": "adt", "episode": 493, "title": "493: Episódio de demonstração", "date": "2026-08-28", "url": "https://gigahertz.fm/podcasts/adt/493", "evidence": ["transcript-name"], "submissionIssue": 101 }],
+  "submission": { "issue": 101, "issueURL": "https://github.com/example/gallery/issues/101", "submittedBy": "demo", "approvedBy": "demo", "approvedAt": "2026-08-28T12:00:00Z" },
+  "likes": 34,
+  "updatedAt": "2026-08-28T12:00:00Z"
+}

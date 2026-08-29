@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "escolhe-ai-49004",
+  "name": "Escolhe Aí",
+  "description": "Ajuda a escolher onde comer usando filtros, categorias e restaurantes próximos.",
+  "developer": {
+    "name": "Vinicius Marques",
+    "url": ""
+  },
+  "platforms": [
+    "ios",
+    "ipados"
+  ],
+  "links": {
+    "website": "https://apps.apple.com/br/app/escolhe-a%C3%AD/id6756740977",
+    "appStore": "https://apps.apple.com/br/app/escolhe-a%C3%AD/id6756740977",
+    "googlePlay": "",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/escolhe-ai-49004.jpg",
+    "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/16/ba/6c/16ba6c3e-4f5d-9cb4-2615-c6ef3e571f32/AppIcon-0-0-1x_U007ephone-0-11-0-85-220.png/512x512bb.jpg"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 490,
+      "title": "490: Corgi À Milanesa",
+      "date": "2026-08-07",
+      "url": "https://gigahertz.fm/podcasts/adt/490",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 49004
+    }
+  ],
+  "submission": {
+    "issue": 49004,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

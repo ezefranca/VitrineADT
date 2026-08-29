@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "farol-104",
+  "name": "Farol",
+  "description": "Acompanhe leituras, guarde citações e redescubra livros esquecidos na estante.",
+  "developer": { "name": "Rafael Lima", "url": "https://example.com" },
+  "platforms": ["android"],
+  "links": { "website": "https://example.com/farol", "appStore": null, "googlePlay": null, "source": null },
+  "icon": null,
+  "mentions": [{ "show": "adt", "episode": 489, "title": "489: Episódio de demonstração", "date": "2026-07-31", "url": "https://gigahertz.fm/podcasts/adt/489", "evidence": ["notes-link"], "submissionIssue": 104 }],
+  "submission": { "issue": 104, "issueURL": "https://github.com/example/gallery/issues/104", "submittedBy": "demo", "approvedBy": "demo", "approvedAt": "2026-07-31T12:00:00Z" },
+  "likes": 9,
+  "updatedAt": "2026-07-31T12:00:00Z"
+}

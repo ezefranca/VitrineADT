@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "lume-105",
+  "name": "Lume",
+  "description": "Transforma objetivos grandes em próximos passos claros e gentis.",
+  "developer": { "name": "Ana Prado", "url": "https://example.com" },
+  "platforms": ["web", "windows", "macos"],
+  "links": { "website": "https://example.com/lume", "appStore": null, "googlePlay": null, "source": null },
+  "icon": null,
+  "mentions": [{ "show": "adt", "episode": 486, "title": "486: Episódio de demonstração", "date": "2026-07-10", "url": "https://gigahertz.fm/podcasts/adt/486", "evidence": ["transcript-name"], "submissionIssue": 105 }],
+  "submission": { "issue": 105, "issueURL": "https://github.com/example/gallery/issues/105", "submittedBy": "demo", "approvedBy": "demo", "approvedAt": "2026-07-10T12:00:00Z" },
+  "likes": 27,
+  "updatedAt": "2026-07-10T12:00:00Z"
+}

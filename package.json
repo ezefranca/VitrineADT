@@ -1,0 +1,22 @@
+{
+  "name": "vitrineadt-gallery",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "build:demo": "node scripts/build-site.mjs --data tests/fixtures/apps --output .preview",
+    "preview:real": "node scripts/build-bootstrap-preview.mjs",
+    "bootstrap:to-data": "node scripts/bootstrap-to-data.mjs",
+    "check": "node --check scripts/*.mjs && node --check site/*.js",
+    "dev": "node scripts/serve.mjs .preview",
+    "dev:data": "node scripts/serve.mjs dist",
+    "labels:setup": "node scripts/setup-labels.mjs",
+    "seed:catalog": "node scripts/seed-catalog.mjs",
+    "seed:verify": "node scripts/seed-catalog.mjs --verify-only",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

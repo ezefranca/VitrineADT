@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "readervcard-48801",
+  "name": "ReaderVCard",
+  "description": "Digitaliza cartões de visita em papel com OCR local, sem conta e sem enviar dados a um servidor.",
+  "developer": {
+    "name": "Daniel Pires",
+    "url": "https://readervcard.danizavtz.com.br"
+  },
+  "platforms": [
+    "ios",
+    "android"
+  ],
+  "links": {
+    "website": "https://readervcard.danizavtz.com.br",
+    "appStore": "https://apps.apple.com/br/app/readervcard/id6780714134",
+    "googlePlay": "https://play.google.com/store/apps/details?id=com.danielpires.visitcardreader",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/readervcard-48801.jpg",
+    "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/07/8b/15/078b1538-91da-67f1-8786-80318f5896fa/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 488,
+      "title": "488: Só Tem Como Deletar De Ré",
+      "date": "2026-07-24",
+      "url": "https://gigahertz.fm/podcasts/adt/488",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 48801
+    }
+  ],
+  "submission": {
+    "issue": 48801,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

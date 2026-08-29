@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "nao-e-um-date-49003",
+  "name": "Não é um Date",
+  "description": "Jogo de perguntas para duas pessoas conversarem, sem conta ou login.",
+  "developer": {
+    "name": "Vinicius Marques",
+    "url": ""
+  },
+  "platforms": [
+    "ios",
+    "ipados"
+  ],
+  "links": {
+    "website": "https://apps.apple.com/us/app/n%C3%A3o-%C3%A9-um-date/id6786474950",
+    "appStore": "https://apps.apple.com/us/app/n%C3%A3o-%C3%A9-um-date/id6786474950",
+    "googlePlay": "",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/nao-e-um-date-49003.jpg",
+    "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/8e/dc/b7/8edcb7e1-fafe-1bad-b45b-5034be47431a/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 490,
+      "title": "490: Corgi À Milanesa",
+      "date": "2026-08-07",
+      "url": "https://gigahertz.fm/podcasts/adt/490",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 49003
+    }
+  ],
+  "submission": {
+    "issue": 49003,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

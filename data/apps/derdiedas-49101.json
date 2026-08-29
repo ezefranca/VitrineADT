@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "derdiedas-49101",
+  "name": "DerDieDas",
+  "description": "Ajuda a aprender artigos e palavras em alemão com definições, pronúncia e exemplos.",
+  "developer": {
+    "name": "Diego Trevisan",
+    "url": ""
+  },
+  "platforms": [
+    "ios"
+  ],
+  "links": {
+    "website": "https://testflight.apple.com/join/EHXNZxTR",
+    "appStore": "",
+    "googlePlay": "",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/derdiedas-49101.png",
+    "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ae/82/9b/ae829be8-22d2-bf63-3781-fb5a0a9a9166/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb-80.png"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 491,
+      "title": "491: Minha IA, Minha Vida",
+      "date": "2026-08-14",
+      "url": "https://gigahertz.fm/podcasts/adt/491",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 49101
+    }
+  ],
+  "submission": {
+    "issue": 49101,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

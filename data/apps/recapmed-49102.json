@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "recapmed-49102",
+  "name": "RecapMed",
+  "description": "Diário de saúde para acompanhar medicamentos, sintomas e episódios de dor.",
+  "developer": {
+    "name": "Wilton Fernandes da Silva",
+    "url": ""
+  },
+  "platforms": [
+    "ios",
+    "ipados"
+  ],
+  "links": {
+    "website": "https://apps.apple.com/br/app/lembrete-de-rem%C3%A9dios-recapmed/id6787512948",
+    "appStore": "https://apps.apple.com/br/app/lembrete-de-rem%C3%A9dios-recapmed/id6787512948",
+    "googlePlay": "",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/recapmed-49102.jpg",
+    "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/05/20/2f/05202fe9-d99e-89cf-a62d-5fec4a9dc9bf/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 491,
+      "title": "491: Minha IA, Minha Vida",
+      "date": "2026-08-14",
+      "url": "https://gigahertz.fm/podcasts/adt/491",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 49102
+    }
+  ],
+  "submission": {
+    "issue": 49102,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

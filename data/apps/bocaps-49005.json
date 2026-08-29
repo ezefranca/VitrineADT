@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "bocaps-49005",
+  "name": "BoCaps",
+  "description": "Alterna o texto selecionado entre maiúsculas e minúsculas com dois toques no Caps Lock.",
+  "developer": {
+    "name": "Harrison Dryde",
+    "url": ""
+  },
+  "platforms": [
+    "windows"
+  ],
+  "links": {
+    "website": "https://apps.microsoft.com/detail/9p7f5f7k8r5d?hl=en-US&gl=BR",
+    "appStore": "",
+    "googlePlay": "",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/bocaps-49005.png",
+    "sourceURL": "https://store-images.s-microsoft.com/image/apps.52743.14605715310304841.37c81a4f-4ec1-4fa4-b68b-14106cde552e.52576a3f-85b6-42b1-a922-68dad6935b89"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 490,
+      "title": "490: Corgi À Milanesa",
+      "date": "2026-08-07",
+      "url": "https://gigahertz.fm/podcasts/adt/490",
+      "evidence": [
+        "gigahertz-api-bootstrap",
+        "episode-notes",
+        "friends-segment"
+      ],
+      "submissionIssue": 49005
+    }
+  ],
+  "submission": {
+    "issue": 49005,
+    "issueURL": null,
+    "submittedBy": "bootstrap-curation",
+    "approvedBy": "bootstrap-curation",
+    "approvedAt": "2026-08-29T14:35:36.145Z"
+  },
+  "likes": 0,
+  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "source": {
+    "kind": "gigahertz-api-bootstrap",
+    "manifest": "data/bootstrap/adt-484-493.json"
+  }
+}

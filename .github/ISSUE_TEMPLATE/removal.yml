@@ -1,0 +1,51 @@
+name: Solicitar remoção de um aplicativo
+description: Pedido público do titular do aplicativo ou de representante autorizado.
+title: "[Remoção]: "
+labels:
+  - removal/new
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use este formulário somente se você for titular do aplicativo ou representante autorizado. A Issue é pública: não envie documentos de identidade, contratos, e-mail, telefone, credenciais ou outros dados privados. A remoção depende de verificação humana.
+
+  - type: input
+    id: entry_issue
+    attributes:
+      label: Issue da entrada
+      description: Cole o endereço da Issue usada para curtir o aplicativo. Ela aparece no botão 👍 da entrada.
+      placeholder: https://github.com/owner/repository/issues/123
+    validations:
+      required: true
+
+  - type: input
+    id: public_proof
+    attributes:
+      label: Prova pública de vínculo
+      description: Necessário quando o pedido não vem da mesma conta que fez a submissão. Use o site oficial, perfil público do desenvolvedor na loja ou repositório que permita verificar seu vínculo.
+      placeholder: https://…
+    validations:
+      required: true
+
+  - type: textarea
+    id: request
+    attributes:
+      label: Pedido
+      description: Diga claramente qual entrada deve ser removida. O motivo é opcional.
+      placeholder: Solicito a remoção da entrada…
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: declarations
+    attributes:
+      label: Declarações
+      options:
+        - label: Sou titular do aplicativo ou representante autorizado a fazer este pedido.
+          required: true
+        - label: As informações fornecidas são verdadeiras e podem ser verificadas pelas fontes públicas indicadas.
+          required: true
+        - label: Não incluí documentos, credenciais ou dados pessoais ou sensíveis nesta Issue pública.
+          required: true
+        - label: Entendo que o pedido será analisado por uma pessoa e que conteúdo legítimo pode ser preservado quando a lei permitir.
+          required: true

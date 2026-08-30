@@ -55,27 +55,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAGES_ADMIN_TOKEN || github.token }}
 
-      - name: Manter domínio personalizado e HTTPS
-        if: steps.likes_check.outputs.likes_changed == 'true'
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GH_PAGES_ADMIN_TOKEN || github.token }}
-          script: |
-            try {
-              await github.rest.repos.updateInformationAboutPagesSite({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                cname: 'vitrineadt.ezequiel.app',
-                https_enforced: true
-              });
-            } catch (error) {
-              if (error.status === 404 && String(error.message).includes('certificate')) {
-                core.warning('O certificado do domínio ainda está sendo emitido; o próximo deploy tentará ativar HTTPS novamente.');
-              } else {
-                throw error;
-              }
-            }
-
       - name: Preparar arquivos para publicação
         if: steps.likes_check.outputs.likes_changed == 'true'
         uses: actions/upload-pages-artifact@v4

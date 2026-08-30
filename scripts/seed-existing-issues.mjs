@@ -1,6 +1,7 @@
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { githubRequest } from "./github.mjs";
+import { compareMentions } from "./mention-order.mjs";
 import { resolveRepository } from "./repository.mjs";
 
 const ROOT = process.cwd();
@@ -30,7 +31,7 @@ function issueBodyForRecord(record) {
   const marker = markerForRecord(record);
   const mentions = (record.mentions ?? [])
     .slice()
-    .sort((a, b) => b.episode - a.episode || String(b.date ?? "").localeCompare(String(a.date ?? "")))
+    .sort(compareMentions)
     .map((mention) => `- Episódio ${mention.episode}: [${mention.title ?? "Menção"}](${mention.url ?? "#"}) (${mention.date ?? "data desconhecida"})`);
 
   return `${marker}

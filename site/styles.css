@@ -168,14 +168,23 @@ footer {
 
 .wordmark {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
+  gap: 8px;
+  color: #806d66;
   font-size: 1.06rem;
   font-weight: 730;
   letter-spacing: -0.035em;
 }
 
+.brand-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+}
+
 .wordmark-accent {
-  color: var(--accent);
+  color: #9f5d4d;
 }
 
 .site-header nav {
@@ -1360,12 +1369,27 @@ footer a:hover {
 
 .share-panel {
   margin-top: 64px;
-  padding-top: 42px;
+  padding-top: 36px;
   border-top: 1px solid var(--line-strong);
 }
 
 .share-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   max-width: 640px;
+}
+
+.share-app-icon {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+  border-radius: 18px;
+  font-size: 1.25rem;
+}
+
+.share-app-icon img {
+  object-fit: cover;
 }
 
 .share-panel-heading .eyebrow {
@@ -1385,43 +1409,6 @@ footer a:hover {
   line-height: 1.55;
 }
 
-.share-message-field {
-  display: block;
-  max-width: 760px;
-  margin-top: 26px;
-}
-
-.share-message-field > span {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--tertiary);
-  font-size: 0.73rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.share-message-field textarea {
-  display: block;
-  width: 100%;
-  min-height: 104px;
-  padding: 15px 17px;
-  resize: vertical;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-small);
-  color: var(--ink);
-  background: var(--surface);
-  font-size: 0.92rem;
-  line-height: 1.55;
-  outline: 0;
-}
-
-.share-message-field textarea:focus {
-  border-color: rgba(0, 102, 204, 0.55);
-  box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
-}
-
-.share-panel-actions,
 .social-links,
 .share-context-links {
   display: flex;
@@ -1430,23 +1417,28 @@ footer a:hover {
   gap: 10px;
 }
 
-.share-panel-actions {
-  margin-top: 13px;
-}
-
-.share-panel-actions .button {
-  min-height: 42px;
-  padding: 0 17px;
-  cursor: pointer;
-  font-size: 0.82rem;
-}
-
 .social-links {
   margin-top: 26px;
 }
 
+.social-icon {
+  display: inline-flex;
+  width: 17px;
+  height: 17px;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
 .social-link,
-.share-context-links a {
+.share-context-links a,
+.share-button {
   display: inline-flex;
   min-height: 34px;
   align-items: center;
@@ -1459,6 +1451,14 @@ footer a:hover {
   font-size: 0.76rem;
   font-weight: 650;
   transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.share-button {
+  min-height: 42px;
+  padding: 0 17px;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.78rem;
 }
 
 .social-link:hover,
@@ -1505,13 +1505,24 @@ footer a:hover {
     padding-top: 32px;
   }
 
-  .share-panel-actions {
+  .share-panel-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .social-links {
     align-items: stretch;
     flex-direction: column;
   }
 
-  .share-panel-actions .button {
-    width: 100%;
+  .social-link,
+  .share-button {
+    justify-content: center;
+  }
+
+  .share-context-links {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 

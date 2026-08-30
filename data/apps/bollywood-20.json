@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "bollywood-20",
+  "name": "Bollywood",
+  "description": "Acompanhe os indicados ao Oscar, marque filmes assistidos, faça seu bolão e compartilhe seus favoritos em cards elegantes.",
+  "developer": {
+    "name": "Arthur Givigir",
+    "url": ""
+  },
+  "platforms": [
+    "ios"
+  ],
+  "links": {
+    "website": "https://apps.apple.com/br/app/bollywood/id6759232508",
+    "appStore": "https://apps.apple.com/br/app/bollywood/id6759232508",
+    "googlePlay": "",
+    "source": ""
+  },
+  "icon": {
+    "path": "/icons/bollywood-20.jpg",
+    "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/18/c5/81/18c58115-38f1-b744-174f-0faca3fd8a39/AppIcon-0-0-1x_U007emarketing-0-8-0-sRGB-85-220.png/512x512bb.jpg",
+    "sha256": "ddf8dc91a2db3c4061310828068efb31b4389732ee36e2cc29bd5035e50795e9"
+  },
+  "mentions": [
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 469,
+      "title": "469: Token Na Mão É Vendaval",
+      "date": "2026-03-14",
+      "url": "https://gigahertz.fm/podcasts/adt/469",
+      "evidence": [
+        "notes-link",
+        "notes-name",
+        "friends-segment-name"
+      ],
+      "submissionIssue": 20
+    }
+  ],
+  "submission": {
+    "issue": 20,
+    "issueURL": "https://github.com/ezefranca/VitrineADT/issues/20",
+    "submittedBy": "ezefranca",
+    "approvedBy": "ezefranca",
+    "approvedAt": "2026-08-30T13:23:00.137Z"
+  },
+  "updatedAt": "2026-08-30T13:23:00.193Z"
+}

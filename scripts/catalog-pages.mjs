@@ -4,6 +4,21 @@ import { compareMentions, latestMention } from "./mention-order.mjs";
 import { slugify } from "./submission.mjs";
 
 const SITE_ORIGIN = "https://vitrineadt.ezequiel.app";
+const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
+  day: "2-digit",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC"
+});
+
+export function formatDate(value) {
+  const input = String(value ?? "").trim();
+  if (!input) return "";
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(input)
+    ? new Date(`${input}T00:00:00Z`)
+    : new Date(input);
+  return Number.isNaN(date.getTime()) ? input : dateFormatter.format(date);
+}
 
 function escapeHTML(value = "") {
   return String(value)
@@ -149,7 +164,7 @@ function appPage(app, repositoryURL) {
       <section class="mention-panel">
         <p class="eyebrow">Amigos do ADT</p>
         <h2><a class="episode-title-link" href="${episodePath(mention.episode)}">Apresentado no episódio ${mention.episode}</a></h2>
-        <p>${escapeHTML(mention.title)} · ${escapeHTML(mention.date)}</p>
+        <p>${escapeHTML(mention.title)} · ${escapeHTML(formatDate(mention.date))}</p>
         <div class="mention-links">
           <a class="text-link" href="${episodePath(mention.episode)}">Ver os apps deste episódio <span aria-hidden="true">→</span></a>
           <a class="text-link" href="${escapeHTML(mention.url)}" target="_blank" rel="noopener noreferrer">Ouvir episódio ${escapeHTML(mention.episode)} <span aria-hidden="true">↗</span></a>
@@ -266,9 +281,16 @@ function episodePage(episode, repositoryURL) {
     <header class="page-hero episode-hero">
       <p class="eyebrow">Área de Transferência</p>
       <h1>Episódio ${episode.episode}</h1>
-      <p class="page-lede">${escapeHTML(episode.title)}${episode.date ? ` · ${escapeHTML(episode.date)}` : ""}</p>
-      <div class="episode-hero-actions">
+      <div class="episode-listening-card">
+        <div class="episode-listening-number" aria-hidden="true"><span>EPISÓDIO</span><strong>${escapeHTML(episode.episode)}</strong></div>
+        <div class="episode-listening-copy">
+          <p class="eyebrow">Ouça no Gigahertz</p>
+          <h2>${escapeHTML(episode.title)}</h2>
+          ${episode.date ? `<p class="episode-listening-date">${escapeHTML(formatDate(episode.date))}</p>` : ""}
+        </div>
         ${episode.url ? `<a class="button" href="${escapeHTML(episode.url)}" target="_blank" rel="noopener noreferrer">Ouvir episódio <span aria-hidden="true">↗</span></a>` : ""}
+      </div>
+      <div class="episode-hero-actions">
         <a class="text-link" href="../../#todos">Explorar todos os apps <span aria-hidden="true">→</span></a>
       </div>
     </header>

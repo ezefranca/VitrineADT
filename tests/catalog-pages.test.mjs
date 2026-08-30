@@ -1,6 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { enrichCatalogApps, groupAppsByEpisode } from "../scripts/catalog-pages.mjs";
+import { enrichCatalogApps, formatDate, groupAppsByEpisode } from "../scripts/catalog-pages.mjs";
+
+test("formata datas do catálogo para leitura humana em português", () => {
+  assert.equal(formatDate("2026-08-02"), "02 de agosto de 2026");
+});
 
 test("não transforma o autor da submissão no desenvolvedor do aplicativo", () => {
   const [app] = enrichCatalogApps([{

@@ -5,8 +5,6 @@ import { slugify } from "./submission.mjs";
 
 const SITE_ORIGIN = "https://vitrineadt.ezequiel.app";
 
-const IGNORED_SUBMITTERS = new Set(["", "unknown", "demo", "github-actions[bot]", "catalog-curation"]);
-
 function escapeHTML(value = "") {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -17,13 +15,18 @@ function escapeHTML(value = "") {
 }
 
 function githubAuthor(record) {
-  const submittedBy = String(record.submission?.submittedBy ?? "").trim();
-  if (!IGNORED_SUBMITTERS.has(submittedBy.toLowerCase()) && /^[a-zd](?:[a-zd-]{0,37}[a-zd])?$/i.test(submittedBy)) {
-    return {
-      username: submittedBy,
-      url: `https://github.com/${submittedBy}`,
-      source: "submitter"
-    };
+  try {
+    const developerProfile = new URL(record.developer?.url ?? "");
+    const profileParts = developerProfile.pathname.split("/").filter(Boolean);
+    if (developerProfile.hostname === "github.com" && profileParts.length === 1 && /^[a-z\d-]+$/i.test(profileParts[0])) {
+      return {
+        username: profileParts[0],
+        url: `https://github.com/${profileParts[0]}`,
+        source: "developer-profile"
+      };
+    }
+  } catch {
+    // O perfil do desenvolvedor é opcional.
   }
 
   try {
@@ -216,8 +219,8 @@ function authorPage(author, apps, repositoryURL) {
     <div class="app-icon" aria-hidden="true">${iconMarkup(app)}</div>
     <div><h2><a href="../../${escapeHTML(app.detailPath)}">${escapeHTML(app.name)}</a></h2><p>${escapeHTML(app.description)}</p></div>
   </article>`).join("");
-  const origin = author.source === "submitter"
-    ? "Aplicativos associados a esta conta nas submissões públicas da VitrineADT."
+  const origin = author.source === "developer-profile"
+    ? "Aplicativos associados a este perfil de desenvolvedor informado publicamente."
     : "Aplicativos associados a esta conta pelo repositório público do projeto.";
   const body = `<main id="main-content" class="content-page author-page">
     <a class="back-link" href="../../#todos"><span aria-hidden="true">←</span> Todos os aplicativos</a>

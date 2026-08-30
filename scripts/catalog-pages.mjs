@@ -1,9 +1,9 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { compareMentions, latestMention } from "./mention-order.mjs";
+import { absoluteURL, jsonLdScript, SITE_ORIGIN } from "./seo.mjs";
 import { slugify } from "./submission.mjs";
 
-const SITE_ORIGIN = "https://vitrineadt.ezequiel.app";
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
   day: "2-digit",
   month: "long",
@@ -71,7 +71,7 @@ export function enrichCatalogApps(records) {
     return {
       ...record,
       slug,
-      detailPath: `apps/${slug}/`,
+      detailPath: `app/${slug}/`,
       author: author ? { ...author, path: `author/${author.username.toLowerCase()}/` } : null
     };
   });
@@ -89,6 +89,69 @@ function iconMarkup(app, prefix = "../../") {
   }
   const initials = app.name.split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word[0]).join("").toUpperCase();
   return escapeHTML(initials);
+}
+
+function iconURL(app) {
+  return app.icon?.path ? absoluteURL(`/icons/${encodeURIComponent(path.basename(app.icon.path))}`) : null;
+}
+
+function podcastSeries() {
+  return {
+    "@type": "PodcastSeries",
+    name: "Área de Transferência",
+    url: "https://gigahertz.fm/podcasts/adt/"
+  };
+}
+
+function mentionStructuredData(mention) {
+  return {
+    "@type": "PodcastEpisode",
+    name: mention.title,
+    episodeNumber: Number(mention.episode),
+    datePublished: mention.date,
+    url: absoluteURL(`/episodes/${encodeURIComponent(String(mention.episode))}/`),
+    sameAs: mention.url,
+    partOfSeries: podcastSeries()
+  };
+}
+
+function appStructuredData(app, pageURL) {
+  const links = [app.links?.website, app.links?.appStore, app.links?.googlePlay, app.links?.source]
+    .filter(Boolean)
+    .filter((link, index, all) => all.indexOf(link) === index);
+  const data = {
+    "@type": "SoftwareApplication",
+    "@id": `${pageURL}#software`,
+    name: app.name,
+    description: app.description,
+    url: pageURL,
+    applicationCategory: "SoftwareApplication",
+    operatingSystem: app.platforms.join(", "),
+    author: {
+      "@type": "Person",
+      name: app.developer.name,
+      ...(app.developer.url ? { url: app.developer.url, sameAs: app.developer.url } : {})
+    },
+    ...(app.updatedAt ? { dateModified: app.updatedAt } : {}),
+    isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
+    subjectOf: (app.mentions ?? []).map(mentionStructuredData)
+  };
+  if (links.length > 0) data.sameAs = links;
+  const image = iconURL(app);
+  if (image) data.image = image;
+  return data;
+}
+
+function breadcrumbData(items) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteURL(item.path)
+    }))
+  };
 }
 
 function footer(prefix, repositoryURL) {
@@ -113,7 +176,25 @@ function footer(prefix, repositoryURL) {
   </footer>`;
 }
 
-function shell({ title, description, body, prefix = "../../", script = "", repositoryURL = null }) {
+function shell({ title, description, body, prefix = "../../", script = "", repositoryURL = null, canonicalURL = SITE_ORIGIN, imageURL = null, structuredData = null }) {
+  const metadata = [
+    `<link rel="canonical" href="${escapeHTML(canonicalURL)}">`,
+    `<meta property="og:url" content="${escapeHTML(canonicalURL)}">`,
+    `<meta property="og:site_name" content="VitrineADT">`,
+    `<meta property="og:locale" content="pt_BR">`,
+    imageURL ? `<meta property="og:image" content="${escapeHTML(imageURL)}">` : "",
+    imageURL ? `<meta name="twitter:image" content="${escapeHTML(imageURL)}">` : "",
+    jsonLdScript(structuredData ?? {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": `${canonicalURL}#webpage`,
+      url: canonicalURL,
+      name: title,
+      description,
+      inLanguage: "pt-BR",
+      isPartOf: { "@id": `${SITE_ORIGIN}/#website` }
+    })
+  ].filter(Boolean).join("\n    ");
   return `<!doctype html>
 <html lang="pt-BR">
   <head>
@@ -129,6 +210,7 @@ function shell({ title, description, body, prefix = "../../", script = "", repos
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="${escapeHTML(title)}">
     <meta name="twitter:description" content="${escapeHTML(description)}">
+    ${metadata}
     <title>${escapeHTML(title)}</title>
     <script src="${prefix}theme.js"></script>
     <link rel="stylesheet" href="${prefix}styles.css">
@@ -153,10 +235,30 @@ function episodePath(episode, prefix = "../../") {
   return `${prefix}episodes/${encodeURIComponent(String(episode))}/`;
 }
 
+function redirectPage(targetURL, label) {
+  const destination = escapeHTML(targetURL);
+  return `<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="${destination}">
+    <meta http-equiv="refresh" content="0; url=${destination}">
+    <title>${escapeHTML(label)} — VitrineADT</title>
+  </head>
+  <body>
+    <p>Esta página mudou. <a href="${destination}">Abrir a página do app</a>.</p>
+    <script>location.replace(${JSON.stringify(targetURL)});</script>
+  </body>
+</html>`;
+}
+
 function appPage(app, repositoryURL) {
   const mentions = [...(app.mentions ?? [])].sort(compareMentions);
   const mostRecentMention = latestMention(app);
   const pageURL = `${SITE_ORIGIN}/${app.detailPath}`;
+  const metaDescription = `${app.description} ${app.developer.name} no Área de Transferência, episódio ${mostRecentMention?.episode ?? ""}.`.replace(/\s+/g, " ").trim();
   const shareText = mostRecentMention
     ? `Meu aplicativo ${app.name} foi mencionado no ADT ${mostRecentMention.episode}. Confira: ${pageURL}\nOuça o episódio: ${mostRecentMention.url}`
     : `Meu aplicativo ${app.name} foi mencionado no Área de Transferência. Confira: ${pageURL}`;
@@ -233,7 +335,25 @@ function appPage(app, repositoryURL) {
       ${moderation}
     </article>
   </main>`;
-  return shell({ title: `${app.name} — VitrineADT`, description: app.description, body, script: "share.js", repositoryURL });
+  return shell({
+    title: `${app.name} — ${app.developer.name} | VitrineADT`,
+    description: metaDescription,
+    body,
+    script: "share.js",
+    repositoryURL,
+    canonicalURL: pageURL,
+    imageURL: iconURL(app),
+    structuredData: {
+      "@context": "https://schema.org",
+      "@graph": [
+        appStructuredData(app, pageURL),
+        breadcrumbData([
+          { name: "VitrineADT", path: "/" },
+          { name: app.name, path: `/${app.detailPath}` }
+        ])
+      ]
+    }
+  });
 }
 
 export function groupAppsByEpisode(apps) {
@@ -263,6 +383,8 @@ export function groupAppsByEpisode(apps) {
 
 function episodePage(episode, repositoryURL) {
   const countLabel = episode.apps.length === 1 ? "1 aplicativo apresentado" : `${episode.apps.length} aplicativos apresentados`;
+  const pageURL = absoluteURL(`/episodes/${episode.episode}/`);
+  const description = `${countLabel} no episódio ${episode.episode} do Área de Transferência: ${episode.title}.`;
   const cards = episode.apps.map((app) => `
     <article class="episode-app-card">
       <a class="episode-app-card-main" href="../../${escapeHTML(app.detailPath)}">
@@ -275,7 +397,6 @@ function episodePage(episode, repositoryURL) {
         <span class="episode-app-arrow" aria-hidden="true">↗</span>
       </a>
     </article>`).join("");
-  const description = `${countLabel} no episódio ${episode.episode} do Área de Transferência.`;
   const body = `<main id="main-content" class="content-page episode-page">
     <a class="back-link" href="../../#recentes"><span aria-hidden="true">←</span> Últimas menções</a>
     <header class="page-hero episode-hero">
@@ -284,7 +405,7 @@ function episodePage(episode, repositoryURL) {
       <div class="episode-listening-card">
         <div class="episode-listening-number" aria-hidden="true"><span>EPISÓDIO</span><strong>${escapeHTML(episode.episode)}</strong></div>
         <div class="episode-listening-copy">
-          <p class="eyebrow">Ouça no Gigahertz</p>
+          <p class="eyebrow">Ouça na Gigahertz</p>
           <h2>${escapeHTML(episode.title)}</h2>
           ${episode.date ? `<p class="episode-listening-date">${escapeHTML(formatDate(episode.date))}</p>` : ""}
         </div>
@@ -302,7 +423,49 @@ function episodePage(episode, repositoryURL) {
       <div class="episode-app-grid">${cards}</div>
     </section>
   </main>`;
-  return shell({ title: `Episódio ${episode.episode} — VitrineADT`, description, body, repositoryURL });
+  const episodeData = {
+    "@type": "PodcastEpisode",
+    "@id": `${pageURL}#episode`,
+    name: episode.title,
+    description,
+    episodeNumber: episode.episode,
+    ...(episode.date ? { datePublished: episode.date } : {}),
+    url: pageURL,
+    ...(episode.url ? { sameAs: episode.url } : {}),
+    partOfSeries: podcastSeries(),
+    subjectOf: {
+      "@type": "ItemList",
+      name: `Apps apresentados no episódio ${episode.episode}`,
+      numberOfItems: episode.apps.length,
+      itemListElement: episode.apps.map((app, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "SoftwareApplication",
+          name: app.name,
+          url: absoluteURL(`/${app.detailPath}`),
+          description: app.description
+        }
+      }))
+    }
+  };
+  return shell({
+    title: `${episode.title} — Área de Transferência | VitrineADT`,
+    description,
+    body,
+    repositoryURL,
+    canonicalURL: pageURL,
+    structuredData: {
+      "@context": "https://schema.org",
+      "@graph": [
+        episodeData,
+        breadcrumbData([
+          { name: "VitrineADT", path: "/" },
+          { name: `Episódio ${episode.episode}`, path: `/episodes/${episode.episode}/` }
+        ])
+      ]
+    }
+  });
 }
 
 function authorPage(author, apps, repositoryURL) {
@@ -313,19 +476,62 @@ function authorPage(author, apps, repositoryURL) {
   const origin = author.source === "developer-profile"
     ? "Aplicativos associados a este perfil de desenvolvedor informado publicamente."
     : "Aplicativos associados a esta conta pelo repositório público do projeto.";
+  const displayName = apps[0]?.developer?.name ?? author.username;
   const body = `<main id="main-content" class="content-page author-page">
     <a class="back-link" href="../../#todos"><span aria-hidden="true">←</span> Todos os aplicativos</a>
     <header class="page-hero"><p class="eyebrow">Autor no GitHub</p><h1>@${escapeHTML(author.username)}</h1><p class="page-lede">${origin}</p><a class="text-link" href="${escapeHTML(author.url)}" target="_blank" rel="noopener noreferrer">Ver perfil no GitHub <span aria-hidden="true">↗</span></a></header>
     <section class="author-apps" aria-labelledby="author-apps-title"><h2 id="author-apps-title">${apps.length === 1 ? "1 aplicativo" : `${apps.length} aplicativos`}</h2>${cards}</section>
   </main>`;
-  return shell({ title: `@${author.username} — VitrineADT`, description: origin, body, repositoryURL });
+  const pageURL = absoluteURL(`/${author.path}`);
+  return shell({
+    title: `@${author.username} — apps na VitrineADT`,
+    description: `${origin} ${apps.length} ${apps.length === 1 ? "aplicativo" : "aplicativos"} na VitrineADT.`,
+    body,
+    repositoryURL,
+    canonicalURL: pageURL,
+    structuredData: {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": `${pageURL}#person`,
+          name: displayName,
+          alternateName: `@${author.username}`,
+          url: pageURL,
+          sameAs: author.url,
+          subjectOf: {
+            "@type": "ItemList",
+            name: `Aplicativos de ${author.username}`,
+            numberOfItems: apps.length,
+            itemListElement: apps.map((app, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              item: {
+                "@type": "SoftwareApplication",
+                name: app.name,
+                url: absoluteURL(`/${app.detailPath}`),
+                description: app.description
+              }
+            }))
+          }
+        },
+        breadcrumbData([
+          { name: "VitrineADT", path: "/" },
+          { name: `@${author.username}`, path: `/${author.path}` }
+        ])
+      ]
+    }
+  });
 }
 
 export async function generateCatalogPages({ outputDirectory, apps, repositoryURL }) {
   for (const app of apps) {
-    const directory = path.join(outputDirectory, "apps", app.slug);
+    const directory = path.join(outputDirectory, app.detailPath);
+    const legacyDirectory = path.join(outputDirectory, "apps", app.slug);
     await mkdir(directory, { recursive: true });
+    await mkdir(legacyDirectory, { recursive: true });
     await writeFile(path.join(directory, "index.html"), appPage(app, repositoryURL));
+    await writeFile(path.join(legacyDirectory, "index.html"), redirectPage(`${SITE_ORIGIN}/${app.detailPath}`, app.name));
   }
 
   const byAuthor = new Map();

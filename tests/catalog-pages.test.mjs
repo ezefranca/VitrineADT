@@ -17,6 +17,17 @@ test("não transforma o autor da submissão no desenvolvedor do aplicativo", () 
   assert.equal(app.author, null);
 });
 
+test("usa a rota singular para páginas de aplicativos", () => {
+  const [app] = enrichCatalogApps([{
+    name: "Exemplo",
+    developer: { name: "Equipe Exemplo" },
+    links: { source: "" },
+    submission: { submittedBy: "catalog" }
+  }]);
+
+  assert.equal(app.detailPath, "app/exemplo/");
+});
+
 test("associa o autor somente quando existe um repositório-fonte público", () => {
   const [app] = enrichCatalogApps([{
     name: "Exemplo",

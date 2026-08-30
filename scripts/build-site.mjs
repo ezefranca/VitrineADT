@@ -1,7 +1,8 @@
 import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { enrichCatalogApps, generateCatalogPages } from "./catalog-pages.mjs";
+import { enrichCatalogApps, generateCatalogPages, groupAppsByEpisode } from "./catalog-pages.mjs";
 import { resolveRepository } from "./repository.mjs";
+import { buildSitemap, enhanceStaticPage, homeStructuredData, robotsFile, staticPages } from "./seo.mjs";
 
 const args = process.argv.slice(2);
 const argument = (name, fallback) => {
@@ -77,6 +78,16 @@ const apps = enrichCatalogApps(records.map((record) => ({
 })));
 
 await cp(path.join(root, "site"), outputDirectory, { recursive: true });
+
+for (const [pathname, fileName] of staticPages()) {
+  const filePath = path.join(outputDirectory, fileName);
+  const html = await readFile(filePath, "utf8");
+  await writeFile(filePath, enhanceStaticPage(html, {
+    pathname,
+    ...(pathname === "/" ? { structuredData: homeStructuredData(apps) } : {})
+  }));
+}
+
 try {
   const icons = (await readdir(path.join(root, "public", "icons"))).filter((name) => /\.(png|jpe?g|webp)$/i.test(name));
   await Promise.all(icons.map((name) => cp(path.join(root, "public", "icons", name), path.join(outputDirectory, "icons", name))));
@@ -87,6 +98,10 @@ try {
 const generatedAt = new Date().toISOString();
 await writeFile(path.join(outputDirectory, "data", "apps.json"), `${JSON.stringify({ generatedAt, repositoryURL, demo: isDemo, apps }, null, 2)}\n`);
 await generateCatalogPages({ outputDirectory, apps, repositoryURL });
+const episodes = groupAppsByEpisode(apps);
+const authors = [...new Map(apps.filter((app) => app.author).map((app) => [app.author.path, app.author])).values()];
+await writeFile(path.join(outputDirectory, "sitemap.xml"), buildSitemap({ apps, episodes, authors }));
+await writeFile(path.join(outputDirectory, "robots.txt"), robotsFile());
 try {
   await readFile(path.join(root, "site", "404.html"));
 } catch (error) {

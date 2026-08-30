@@ -37,9 +37,13 @@ O fluxo de produção funciona assim:
   - Lê `data/apps`, agrega reações e gera o diretório `dist`.
 - `catalog-pages.mjs`
   - Gera páginas estáticas:
-  - `/apps/{slug}/` (detalhes do app)
+  - `/app/{slug}/` (detalhes do app; rota canônica singular)
+  - `/apps/{slug}/` (redirect de compatibilidade para a rota singular)
   - `/author/{username}/` (agregador pelo perfil do desenvolvedor ou proprietário do repositório-fonte no GitHub).
   - `/episodes/{episode}/` (todos os apps apresentados em um episódio; cada app aparece uma única vez e os cards são ordenados por nome).
+- `seo.mjs`
+  - Adiciona canonical, metadados sociais e JSON-LD às páginas estáticas e às páginas de catálogo.
+  - Gera `sitemap.xml` e `robots.txt` com as rotas públicas.
 - `mark-queued.mjs`, `mark-published.mjs`, `mark-import-failed.mjs`
   - Sincronizam estado da publicação e comentários de retorno.
 - `mark-*`, `setup-labels.mjs`, `github.mjs`, `images.mjs`
@@ -140,10 +144,12 @@ Durante o build, esses registros viram o dataset final (`dist/data/apps.json`) j
 ## Rotas públicas finais
 
 - Home: `/`
-- App: `/apps/{slug}/`
+- App: `/app/{slug}/`
+- Compatibilidade: `/apps/{slug}/` redireciona para `/app/{slug}/`
 - Desenvolvedor ou autor do repositório-fonte: `/author/{username}/`
 - Episódio: `/episodes/{episode}/`
 - Páginas institucionais em `/sobre.html`, `/como-funciona.html`, `/termos.html`, etc.
+- Descoberta: `/sitemap.xml` e `/robots.txt`
 
 ## Integrações externas
 

@@ -35,6 +35,32 @@
         "friends-segment-name"
       ],
       "submissionIssue": 20
+    },
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 467,
+      "title": "467: Uma Pizza Desconstruída",
+      "date": "2026-02-28",
+      "url": "https://gigahertz.fm/podcasts/adt/467",
+      "evidence": [
+        "notes-link",
+        "notes-name"
+      ],
+      "submissionIssue": 20
+    },
+    {
+      "show": "adt",
+      "segment": "Amigos do Área de Transferência",
+      "episode": 466,
+      "title": "466: Vibe Ducking",
+      "date": "2026-02-21",
+      "url": "https://gigahertz.fm/podcasts/adt/466",
+      "evidence": [
+        "notes-link",
+        "notes-name"
+      ],
+      "submissionIssue": 20
     }
   ],
   "submission": {
@@ -44,5 +70,5 @@
     "approvedBy": "ezefranca",
     "approvedAt": "2026-08-30T13:23:00.137Z"
   },
-  "updatedAt": "2026-08-30T13:23:00.193Z"
+  "updatedAt": "2026-08-30T13:23:43.000Z"
 }

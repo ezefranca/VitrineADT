@@ -87,6 +87,11 @@ try {
 const generatedAt = new Date().toISOString();
 await writeFile(path.join(outputDirectory, "data", "apps.json"), `${JSON.stringify({ generatedAt, repositoryURL, demo: isDemo, apps }, null, 2)}\n`);
 await generateCatalogPages({ outputDirectory, apps, repositoryURL });
-await cp(path.join(outputDirectory, "index.html"), path.join(outputDirectory, "404.html"));
+try {
+  await readFile(path.join(root, "site", "404.html"));
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+  await cp(path.join(outputDirectory, "index.html"), path.join(outputDirectory, "404.html"));
+}
 await writeFile(path.join(outputDirectory, ".nojekyll"), "");
 console.log(`Site gerado em ${path.relative(root, outputDirectory)} com ${apps.length} app(s).`);

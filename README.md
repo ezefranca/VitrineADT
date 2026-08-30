@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="site/icon.svg" alt="Ícone da VitrineADT" width="96">
+</p>
+
 # VitrineADT
 
 Galeria pública e independente de aplicativos apresentados no segmento **Amigos do Área de Transferência**.
@@ -54,10 +58,19 @@ Resumo objetivo:
 2. Workflow `queue-approved-app` importa/atualiza o app no `data/apps`.
 3. A Issue recebe `publication/queued`.
 
+### 2.1) Atualização de metadados
+
+1. Na página de um aplicativo, use **Atualizar estas informações** ou abra uma Issue com o template `metadata-update.yml`.
+2. Informe a Issue da entrada e somente os campos que precisam mudar: nome, desenvolvedor, descrição, plataformas, links ou ícone. Campos deixados em branco preservam os valores atuais.
+3. Se a Issue foi criada pela mesma conta registrada em `submission.submittedBy`, `process-metadata-update` aplica a alteração automaticamente.
+4. Se veio de outra conta, a Issue recebe `metadata/awaiting-moderation`. Um moderador deve adicionar `metadata/approved` depois de conferir a solicitação.
+5. O workflow valida a permissão do moderador, baixa um novo ícone quando solicitado, atualiza `data/apps/*.json` e preserva `mentions[]` e a Issue original.
+6. A alteração aplicada recebe `metadata/applied`; a próxima publicação mostra os novos metadados.
+
 ### 3) Publicação
 
 1. Uma release é criada no GitHub.
-2. Workflow `publish-release`:
+2. Workflow `publish-release` (executado em push na `main`, por release publicada ou manualmente):
    - busca reações 👍;
    - gera `dist/`;
    - publica Pages;
@@ -85,16 +98,17 @@ Resumo objetivo:
 - Entrada/validação: `submission/new`, `validation/passed`, `validation/needs-review`, `validation/failed`, `validation/source-unavailable`, `validation/recheck`
 - Estado: `status/awaiting-moderation`
 - Editorial: `moderation/approved`, `moderation/rejected`
+- Metadados: `metadata/update`, `metadata/awaiting-moderation`, `metadata/approved`, `metadata/applied`, `metadata/failed`
 - Publicação: `publication/queued`, `publication/published`
 - Remoção: `removal/new`, `removal/awaiting-moderation`, `removal/approved`, `removal/completed`, `removal/failed`
 
 ### Publicação manual
 
-1. Crie uma release no GitHub apontando para o commit mais recente da branch padrão.
+1. Um push na `main` publica automaticamente o catálogo atualizado. Também é possível criar uma release ou executar `publish-release` manualmente.
 2. Aguarde `publish-release` concluir.
-3. A URL publicada ficará no comentário da Issue.
+3. A URL publicada ficará disponível no ambiente do GitHub Pages.
 
-Não há deploy automático em push. A publicação só sobe no evento de release.
+O deploy acontece automaticamente após um push na `main` ou uma release publicada.
 
 ## Integrações externas
 

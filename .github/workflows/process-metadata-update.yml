@@ -1,0 +1,51 @@
+name: Processar atualização de metadados
+
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: metadata-update-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: >-
+      (github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'metadata/update')) ||
+      (github.event.action == 'labeled' && github.event.label.name == 'metadata/approved')
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Obter o catálogo mais recente
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 1
+
+      - name: Aplicar atualização autorizada
+        id: update
+        run: node scripts/metadata-update.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: Verificar o catálogo antes de gravar
+        if: steps.update.outputs.applied == 'true'
+        run: npm run build
+
+      - name: Gravar metadados atualizados
+        if: steps.update.outputs.applied == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- data/apps public/icons
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração necessária."
+          else
+            git commit -m "catalog: update metadata from issue #${{ github.event.issue.number }}"
+            git push
+          fi

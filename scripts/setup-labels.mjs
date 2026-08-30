@@ -3,6 +3,11 @@ import { githubRequest, repositoryFromEnvironment } from "./github.mjs";
 const labels = [
   ["submission/new", "5319e7", "Nova submissão de aplicativo"],
   ["submission/seed", "8250df", "Entrada criada pela importação inicial"],
+  ["metadata/update", "0969da", "Solicitação de atualização de metadados"],
+  ["metadata/awaiting-moderation", "d4c5f9", "Atualização de metadados aguardando revisão humana"],
+  ["metadata/approved", "0e8a16", "Atualização de metadados aprovada por um moderador"],
+  ["metadata/applied", "0052cc", "Atualização de metadados aplicada ao catálogo"],
+  ["metadata/failed", "d1242f", "Atualização de metadados inválida"],
   ["validation/passed", "2da44e", "Evidência automática encontrada"],
   ["validation/needs-review", "bf8700", "A evidência precisa de revisão humana"],
   ["validation/failed", "d1242f", "Submissão inválida"],

@@ -1,0 +1,109 @@
+name: Atualizar dados de um aplicativo
+description: Solicite uma correção ou atualização nos metadados de uma entrada publicada.
+title: "[Atualização]: "
+labels:
+  - metadata/update
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use este formulário para atualizar informações públicas de um aplicativo já publicado. Deixe em branco os campos que não devem mudar. A Issue é pública: não envie documentos, credenciais ou dados pessoais.
+
+        A conta que fez a submissão original pode atualizar a entrada automaticamente. Pedidos de outras contas ficam aguardando moderação.
+
+  - type: input
+    id: entry_issue
+    attributes:
+      label: Issue da entrada
+      description: Cole o endereço da Issue associada ao botão de curtidas da entrada.
+      placeholder: https://github.com/owner/repository/issues/123
+    validations:
+      required: true
+
+  - type: input
+    id: app_name
+    attributes:
+      label: Nome do aplicativo
+      description: Opcional. Deixe em branco para manter o nome atual.
+      placeholder: Nome público atualizado
+
+  - type: input
+    id: developer_name
+    attributes:
+      label: Desenvolvedor ou equipe
+      description: Opcional. Deixe em branco para manter o valor atual.
+      placeholder: Nome público atualizado
+
+  - type: input
+    id: developer_url
+    attributes:
+      label: Site do desenvolvedor
+      description: Opcional. Use uma URL HTTPS.
+      placeholder: https://exemplo.com
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição curta
+      description: Opcional. Até 400 caracteres.
+      placeholder: Explique em uma ou duas frases o que o aplicativo faz.
+
+  - type: checkboxes
+    id: platforms
+    attributes:
+      label: Plataformas
+      description: Opcional. Selecione as plataformas que devem substituir as atuais.
+      options:
+        - label: Web
+        - label: iOS
+        - label: iPadOS
+        - label: macOS
+        - label: Android
+        - label: Windows
+        - label: Linux
+        - label: watchOS
+        - label: tvOS
+        - label: Outra
+
+  - type: input
+    id: website_url
+    attributes:
+      label: Link principal do aplicativo
+      description: Opcional. Use uma URL HTTPS.
+      placeholder: https://meuapp.com
+
+  - type: input
+    id: app_store_url
+    attributes:
+      label: Link da App Store
+      description: Opcional. Use uma URL de apps.apple.com.
+      placeholder: https://apps.apple.com/…
+
+  - type: input
+    id: google_play_url
+    attributes:
+      label: Link do Google Play
+      description: Opcional. Use uma URL de play.google.com.
+      placeholder: https://play.google.com/store/apps/details?id=…
+
+  - type: input
+    id: source_url
+    attributes:
+      label: Código-fonte
+      description: Opcional. Use uma URL HTTPS.
+      placeholder: https://github.com/…
+
+  - type: input
+    id: icon_url
+    attributes:
+      label: Link direto para o ícone
+      description: Opcional. Use PNG, JPEG ou WebP por HTTPS.
+      placeholder: https://meuapp.com/icon.png
+
+  - type: checkboxes
+    id: declarations
+    attributes:
+      label: Declaração
+      options:
+        - label: As informações atualizadas são públicas, verdadeiras e autorizadas para exibição na galeria.
+          required: true

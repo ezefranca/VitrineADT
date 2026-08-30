@@ -29,6 +29,8 @@ O fluxo de produção funciona assim:
   - Importa apps aprovados (`moderation/approved`) com deduplicação por site/App Store/Google Play.
 - `process-removal.mjs`
   - Remove app e ícone de catálogo sob pedido validado.
+- `metadata-update.mjs`
+  - Interpreta pedidos de alteração de dados, verifica autoria ou aprovação de moderador e atualiza o registro canônico.
 - `fetch-reactions.mjs`
   - Coleta reações 👍 por issue para alimentar os cards.
 - `build-site.mjs`
@@ -71,7 +73,18 @@ O fluxo de produção funciona assim:
 
 Resultado: app entra na fila de publicação, sem ir ao site imediatamente.
 
-### B) Publicação
+### B) Atualização de metadados
+
+1. O usuário abre `.github/ISSUE_TEMPLATE/metadata-update.yml` pelo link **Atualizar estas informações** da página do app.
+2. O pedido identifica a entrada pela URL ou número da Issue original e aceita alterações de nome, desenvolvedor, descrição, plataformas, links e ícone. Campos em branco não alteram o valor existente.
+3. Em uma Issue aberta, `process-metadata-update` compara o autor do pedido com `submission.submittedBy`:
+   - mesma conta: aplica automaticamente;
+   - conta diferente: adiciona `metadata/awaiting-moderation` e aguarda `metadata/approved`.
+4. Ao receber `metadata/approved`, o workflow aceita somente um usuário com permissão de administração, manutenção, escrita ou triagem no repositório.
+5. O script atualiza apenas os campos enviados, baixa e registra o hash do novo ícone quando necessário, preserva `mentions[]` e a referência da Issue original, e adiciona `metadata/applied`.
+6. O commit gerado na `main` aciona a publicação do site.
+
+### C) Publicação
 
 1. Release publicada.
 2. Workflow `publish-release`:
@@ -82,7 +95,7 @@ Resultado: app entra na fila de publicação, sem ir ao site imediatamente.
 
 Resultado: site publicado reflete o snapshot daquela release.
 
-### C) Remoção
+### D) Remoção
 
 1. Pedido via `.github/ISSUE_TEMPLATE/removal.yml` (`removal/new`).
 2. `process-removal` identifica entry Issue alvo.
@@ -90,7 +103,7 @@ Resultado: site publicado reflete o snapshot daquela release.
 4. Registra resultado na issue de pedido e mantém a issue original como registro histórico.
 5. Remoção final entra em produção no próximo release.
 
-### D) Reportes
+### E) Reportes
 
 - `report/new` abre fila de revisão manual.
 - Não existe deleção automática por denúncia.
@@ -102,6 +115,7 @@ Resultado: site publicado reflete o snapshot daquela release.
 - `status/awaiting-moderation`
 - `moderation/approved`, `moderation/rejected`
 - `publication/queued`, `publication/published`
+- `metadata/update`, `metadata/awaiting-moderation`, `metadata/approved`, `metadata/applied`, `metadata/failed`
 - `removal/new`, `removal/awaiting-moderation`, `removal/approved`, `removal/completed`, `removal/failed`
 - `report/new`
 
@@ -149,10 +163,8 @@ Após a validação, esses dados são persistidos em `data/apps/*.json` dentro d
 
 ## O que é importante para operação
 
-- O runtime publicado depende apenas de:
-  - `dist/` gerado no repositório;
-  - release ativa do GitHub Pages.
-- Se mudar catálogo, precisa rodar release para refletir no site.
+- O runtime publicado depende do `dist/` gerado pelo workflow e do último deploy ativo no GitHub Pages.
+- Se mudar o catálogo na `main`, o workflow publica automaticamente; uma release também pode disparar a publicação.
 - Se falhar build/publicação, o estado anterior permanece disponível.
 
 ## Comandos úteis

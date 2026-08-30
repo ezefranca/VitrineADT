@@ -87,7 +87,7 @@ function footer(prefix, repositoryURL) {
       <a href="${prefix}codigo-de-conduta.html">Código de conduta</a>
     </nav>
     <div class="footer-legal">
-      ${repositoryURL ? `<a class="github-link" href="${escapeHTML(repositoryURL)}" target="_blank" rel="external noopener noreferrer" aria-label="Ver o projeto VitrineADT no GitHub"><img src="https://github.githubassets.com/favicons/favicon.svg" alt="" width="20" height="20"><span>GitHub</span></a>` : ""}
+      ${repositoryURL ? `<a class="github-link" href="${escapeHTML(repositoryURL)}" target="_blank" rel="external noopener noreferrer" aria-label="Contribuir com o projeto VitrineADT no Github"><img src="https://github.githubassets.com/favicons/favicon.svg" alt="" width="20" height="20"><span>Contribuir com o Projeto no Github</span></a>` : ""}
       <p>© 2026 VitrineADT. Projeto independente.</p>
       <p>Os direitos autorais, marcas, ícones e demais materiais de cada aplicativo pertencem aos respectivos titulares.</p>
       <p>Gigahertz e Área de Transferência pertencem à Rede Gigahertz LTDA. Não há afiliação ou endosso.</p>
@@ -151,10 +151,14 @@ function appPage(app, repositoryURL) {
   const issueURL = app.submission?.issueURL ?? (repositoryURL && app.submission?.issue ? `${repositoryURL}/issues/${app.submission.issue}` : null);
   const likesCount = app.likes ?? 0;
   const reportURL = repositoryURL ? `${repositoryURL}/issues/new?template=report.yml&title=${encodeURIComponent(`[Denúncia]: ${app.name}`)}` : null;
+  const updateURL = repositoryURL && app.submission?.issue
+    ? `${repositoryURL}/issues/new?template=metadata-update.yml&entry_issue=${encodeURIComponent(`${repositoryURL}/issues/${app.submission.issue}`)}`
+    : null;
   const removalURL = repositoryURL && app.submission?.issue
     ? `${repositoryURL}/issues/new?template=removal.yml&title=${encodeURIComponent(`[Remoção]: ${app.name}`)}&body=${encodeURIComponent(`### Issue da entrada\n\n${app.submission.issueURL ?? `${repositoryURL}/issues/${app.submission.issue}`}\n`)}`
     : null;
   const moderation = reportURL ? `<div class="detail-secondary-actions">
+    ${updateURL ? `<a href="${escapeHTML(updateURL)}" target="_blank" rel="noopener noreferrer">Atualizar estas informações</a>` : ""}
     <a href="${escapeHTML(reportURL)}" target="_blank" rel="noopener noreferrer">Reportar informações</a>
     ${removalURL ? `<a href="${escapeHTML(removalURL)}" target="_blank" rel="noopener noreferrer">Solicitar remoção</a>` : ""}
   </div>` : "";

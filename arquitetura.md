@@ -17,17 +17,12 @@ O fluxo de produção funciona assim:
 ### 1) Dados
 
 - `data/apps/*.json`: catálogo canônico (um app por arquivo).
-- `data/bootstrap/adt-484-493.json`: manifest inicial, usado para bootstrap.
 - `public/icons/*`: ícones baixados e versionados.
 - `dist/data/apps.json`: dataset final do build.
 - `tests/fixtures/apps/*`: dados de teste (não vão para produção).
 
 ### 2) Camada de automação (`scripts/`)
 
-- `bootstrap-to-data.mjs`
-  - Converte o manifest inicial para `data/apps`.
-- `seed-catalog.mjs`
-  - Workflow de bootstrap completo: verifica episódios, cria/atualiza issues e grava catálogo.
 - `validate-submission.mjs`
   - Validação de issue de submissão (`submission/new`) contra formulário, episódio e evidências.
 - `import-approved-app.mjs`
@@ -57,18 +52,7 @@ O fluxo de produção funciona assim:
 
 ## Esteira operacional no GitHub (end-to-end)
 
-### A) Seed inicial (bootstrap)
-
-1. Workflow manual `seed-catalog`.
-2. `seed-catalog.mjs` valida manifest + episódios da API ADT.
-3. Valida menção no segmento do episódio.
-4. Cria/reusa issues com labels de seed.
-5. Gera/atualiza `data/apps/*.json` e `public/icons`.
-6. Executa testes e build antes do commit.
-
-Observação: essa etapa organiza os dados reais no formato final. Em produção, não se usa o manifest bruto (`data/bootstrap/...`) diretamente no front.
-
-### B) Submissão de novo app
+### A) Submissão de novo app
 
 1. Usuário abre Issue pelo template `.github/ISSUE_TEMPLATE/app.yml` com label `submission/new`.
 2. Workflow `validate-submission` roda.
@@ -87,7 +71,7 @@ Observação: essa etapa organiza os dados reais no formato final. Em produção
 
 Resultado: app entra na fila de publicação, sem ir ao site imediatamente.
 
-### C) Publicação
+### B) Publicação
 
 1. Release publicada.
 2. Workflow `publish-release`:
@@ -98,7 +82,7 @@ Resultado: app entra na fila de publicação, sem ir ao site imediatamente.
 
 Resultado: site publicado reflete o snapshot daquela release.
 
-### D) Remoção
+### C) Remoção
 
 1. Pedido via `.github/ISSUE_TEMPLATE/removal.yml` (`removal/new`).
 2. `process-removal` identifica entry Issue alvo.
@@ -106,7 +90,7 @@ Resultado: site publicado reflete o snapshot daquela release.
 4. Registra resultado na issue de pedido e mantém a issue original como registro histórico.
 5. Remoção final entra em produção no próximo release.
 
-### E) Reportes
+### D) Reportes
 
 - `report/new` abre fila de revisão manual.
 - Não existe deleção automática por denúncia.
@@ -145,6 +129,15 @@ Durante o build, esses registros viram o dataset final (`dist/data/apps.json`) j
 - Autor: `/author/{username}/`
 - Páginas institucionais em `/sobre.html`, `/como-funciona.html`, `/termos.html`, etc.
 
+## Integrações externas
+
+O site estático não faz consultas externas durante a navegação. A API pública do Gigahertz é usada em `scripts/submission.mjs` para validar uma submissão:
+
+- `https://gigahertz.fm/api/podcasts/adt/{episódio}.json` fornece número, título, data, permalink e notas do episódio.
+- `https://gigahertz.fm/podcasts/adt/{episódio}.txt` fornece a transcrição usada para confirmar a menção no segmento “Amigos do Área de Transferência”.
+
+Após a validação, esses dados são persistidos em `data/apps/*.json` dentro de `mentions[]`. A API do GitHub, encapsulada em `scripts/github.mjs`, cuida das Issues, reações e automações de publicação.
+
 ## Segurança, consistência e qualidade
 
 - Sem API dinâmica para leitura do catálogo.
@@ -168,11 +161,5 @@ Durante o build, esses registros viram o dataset final (`dist/data/apps.json`) j
 - `npm run check`
 - `npm run build`
 - `npm run build:demo`
-- `npm run bootstrap:to-data`
-- `npm run preview:real`
 - `npm run dev`
-- `npm run dev:data`
 - `npm run labels:setup`
-- `npm run seed:catalog`
-- `npm run seed:verify`
-

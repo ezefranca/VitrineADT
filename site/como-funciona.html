@@ -3,10 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light">
+    <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f5f5f7">
     <meta name="description" content="Como enviar um aplicativo apresentado em Amigos do Área de Transferência para a VitrineADT.">
     <title>Como funciona — VitrineADT</title>
+    <script src="./theme.js"></script>
     <link rel="stylesheet" href="./styles.css">
     <script src="./site.js" type="module"></script>
   </head>
@@ -19,7 +20,10 @@
         <a href="./sobre.html">Sobre</a>
         <a href="./como-funciona.html" aria-current="page">Como funciona</a>
       </nav>
-      <a class="button button-compact submit-link" href="#" hidden>Enviar um app</a>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-label="Usar tema escuro" aria-pressed="false"><span class="theme-toggle-icon" aria-hidden="true">☾</span><span class="theme-toggle-label">Escuro</span></button>
+        <a class="button button-compact submit-link" href="#" hidden>Enviar um app</a>
+      </div>
     </header>
 
     <main id="main-content" class="content-page">

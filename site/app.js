@@ -21,9 +21,10 @@ const state = {
 };
 const template = document.querySelector("#app-card-template");
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
+const timeFormatter = new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "UTC" });
 
 function latestMention(app) {
-  return [...(app.mentions ?? [])].sort((a, b) => b.date.localeCompare(a.date))[0];
+  return [...(app.mentions ?? [])].sort((a, b) => Number(b.episode ?? 0) - Number(a.episode ?? 0) || String(b.date ?? "").localeCompare(String(a.date ?? "")))[0];
 }
 
 function initials(name) {
@@ -129,7 +130,9 @@ function createCard(app) {
 }
 
 function renderInto(element, apps) {
-  element.replaceChildren(...apps.map(createCard));
+  const cards = apps.map(createCard);
+  if (element.id === "recent-list") cards.forEach((card) => card.classList.add("recent-card"));
+  element.replaceChildren(...cards);
 }
 
 function hashSeed(value) {
@@ -239,8 +242,8 @@ async function start() {
   if (catalog.notice) previewNotice.textContent = catalog.notice;
   previewNotice.hidden = !catalog.demo && !catalog.preview;
 
-  const recent = [...state.apps].sort((a, b) => (latestMention(b)?.date ?? "").localeCompare(latestMention(a)?.date ?? ""));
-  const popular = [...state.apps].sort((a, b) => (b.likes ?? 0) - (a.likes ?? 0) || (latestMention(b)?.date ?? "").localeCompare(latestMention(a)?.date ?? ""));
+  const recent = [...state.apps].sort((a, b) => Number(latestMention(b)?.episode ?? 0) - Number(latestMention(a)?.episode ?? 0) || (latestMention(b)?.date ?? "").localeCompare(latestMention(a)?.date ?? ""));
+  const popular = [...state.apps].sort((a, b) => (b.likes ?? 0) - (a.likes ?? 0) || Number(latestMention(b)?.episode ?? 0) - Number(latestMention(a)?.episode ?? 0) || (latestMention(b)?.date ?? "").localeCompare(latestMention(a)?.date ?? ""));
   const prominent = new Set([...recent.slice(0, 4), ...popular.filter((app) => app.likes > 0).slice(0, 4)].map((app) => app.id));
   const discoveryPool = state.apps.filter((app) => !prominent.has(app.id));
   const discovery = randomShuffle(discoveryPool.length >= 3 ? discoveryPool : state.apps);
@@ -254,7 +257,8 @@ async function start() {
   if (catalog.likesAvailable === false) {
     document.querySelector("#likes-freshness").textContent = "As curtidas serão ativadas depois da criação das Issues reais no GitHub.";
   } else if (catalog.generatedAt) {
-    document.querySelector("#likes-freshness").textContent = `Curtidas via 👍 no GitHub · atualizadas em ${dateFormatter.format(new Date(catalog.generatedAt))}.`;
+    const updatedAt = new Date(catalog.generatedAt);
+    document.querySelector("#likes-freshness").textContent = `Curtidas via 👍 no GitHub · atualizadas em ${dateFormatter.format(updatedAt)} às ${timeFormatter.format(updatedAt)} (são atualizadas de tempo em tempo).`;
   }
   document.querySelector("#search").addEventListener("input", (event) => {
     state.search = event.currentTarget.value;

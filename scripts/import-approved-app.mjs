@@ -138,7 +138,7 @@ async function main() {
     }
   }
 
-  record.mentions.sort((a, b) => b.date.localeCompare(a.date));
+  record.mentions.sort((a, b) => b.episode - a.episode || b.date.localeCompare(a.date));
   await writeFile(destination, `${JSON.stringify(record, null, 2)}\n`);
   await writeOutput({ app_id: id, issue_number: issueNumber, record_path: path.relative(ROOT, destination) });
   console.log(JSON.stringify({ id, issue: issueNumber, existing: Boolean(existing), record: path.relative(ROOT, destination) }));

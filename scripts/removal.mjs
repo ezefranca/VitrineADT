@@ -15,6 +15,6 @@ export function isOriginalSubmitter(record, requester) {
   const original = String(record?.submission?.submittedBy ?? "").trim().toLowerCase();
   const candidate = String(requester ?? "").trim().toLowerCase();
   if (!original || !candidate) return false;
-  if (["unknown", "demo", "github-actions[bot]", "bootstrap-curation"].includes(original)) return false;
+  if (["unknown", "demo", "github-actions[bot]", "catalog-curation"].includes(original)) return false;
   return original === candidate;
 }

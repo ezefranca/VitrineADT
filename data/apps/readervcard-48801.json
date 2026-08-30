@@ -30,7 +30,7 @@
       "date": "2026-07-24",
       "url": "https://gigahertz.fm/podcasts/adt/488",
       "evidence": [
-        "gigahertz-api-bootstrap",
+        "gigahertz-api",
         "episode-notes",
         "friends-segment"
       ],
@@ -40,14 +40,13 @@
   "submission": {
     "issue": 48801,
     "issueURL": null,
-    "submittedBy": "bootstrap-curation",
-    "approvedBy": "bootstrap-curation",
+    "submittedBy": "catalog-curation",
+    "approvedBy": "catalog-curation",
     "approvedAt": "2026-08-29T14:35:36.145Z"
   },
   "likes": 0,
   "updatedAt": "2026-08-29T14:35:36.145Z",
   "source": {
-    "kind": "gigahertz-api-bootstrap",
-    "manifest": "data/bootstrap/adt-484-493.json"
+    "kind": "gigahertz-api"
   }
 }

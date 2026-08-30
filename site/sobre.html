@@ -3,10 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light">
+    <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f5f5f7">
     <meta name="description" content="Por que a VitrineADT existe e sua relação independente com o Área de Transferência.">
     <title>Sobre — VitrineADT</title>
+    <script src="./theme.js"></script>
     <link rel="stylesheet" href="./styles.css">
     <script src="./site.js" type="module"></script>
   </head>
@@ -19,7 +20,10 @@
         <a href="./sobre.html" aria-current="page">Sobre</a>
         <a href="./como-funciona.html">Como funciona</a>
       </nav>
-      <a class="button button-compact submit-link" href="#" hidden>Enviar um app</a>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-label="Usar tema escuro" aria-pressed="false"><span class="theme-toggle-icon" aria-hidden="true">☾</span><span class="theme-toggle-label">Escuro</span></button>
+        <a class="button button-compact submit-link" href="#" hidden>Enviar um app</a>
+      </div>
     </header>
 
     <main id="main-content" class="content-page">
@@ -32,7 +36,8 @@
       <article class="prose">
         <section>
           <h2>Por que ela existe</h2>
-          <p>Para quem desenvolve sozinho ou em uma equipe pequena, conseguir espaço editorial nem sempre é fácil. Uma menção no podcast pode apresentar um projeto a pessoas que jamais o encontrariam em uma loja de aplicativos ou em uma rede social.</p>
+          <p>Para quem desenvolve sozinho ou em uma equipe pequena, aparecer editorialmente quase nunca é simples. Uma menção no podcast encurta esse caminho: pode colocar um projeto diante das primeiras pessoas dispostas a baixar, testar e compartilhar o app, antes que ele se perca entre milhares de lançamentos nas lojas ou nas redes sociais.</p>
+          <p>É essa a diferença entre ser apenas mais um lançamento e conquistar os primeiros downloads: uma recomendação contextualizada, ligada a uma história e a uma comunidade que já está ouvindo.</p>
           <p>A VitrineADT nasceu como agradecimento ao Área de Transferência por abrir esse espaço no segmento “Amigos do Área de Transferência”. A ideia é simples: reunir as apresentações em um lugar agradável, preservar o vínculo com o episódio e ajudar cada aplicativo a continuar sendo descoberto.</p>
         </section>
 

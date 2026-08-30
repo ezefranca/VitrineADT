@@ -2,7 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { slugify } from "./submission.mjs";
 
-const IGNORED_SUBMITTERS = new Set(["", "unknown", "demo", "github-actions[bot]", "bootstrap-curation"]);
+const IGNORED_SUBMITTERS = new Set(["", "unknown", "demo", "github-actions[bot]", "catalog-curation"]);
 
 function escapeHTML(value = "") {
   return String(value)
@@ -98,14 +98,17 @@ function shell({ title, description, body, prefix = "../../", script = "", repos
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light">
+    <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f5f5f7">
     <meta name="description" content="${escapeHTML(description)}">
     <meta property="og:title" content="${escapeHTML(title)}">
     <meta property="og:description" content="${escapeHTML(description)}">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="${escapeHTML(title)}">
+    <meta name="twitter:description" content="${escapeHTML(description)}">
     <title>${escapeHTML(title)}</title>
+    <script src="${prefix}theme.js"></script>
     <link rel="stylesheet" href="${prefix}styles.css">
     ${script ? `<script src="${prefix}${script}" type="module"></script>` : ""}
   </head>
@@ -114,6 +117,9 @@ function shell({ title, description, body, prefix = "../../", script = "", repos
     <header class="site-header">
       <a class="wordmark" href="${prefix}" aria-label="VitrineADT, página inicial"><span>Vitrine</span><span class="wordmark-accent">ADT</span></a>
       <nav aria-label="Navegação principal"><a href="${prefix}#recentes">Apps</a><a href="${prefix}sobre.html">Sobre</a><a href="${prefix}como-funciona.html">Como funciona</a></nav>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-label="Usar tema escuro" aria-pressed="false"><span class="theme-toggle-icon" aria-hidden="true">☾</span><span class="theme-toggle-label">Escuro</span></button>
+      </div>
     </header>
     ${body}
     ${footer(prefix, repositoryURL)}
@@ -123,6 +129,7 @@ function shell({ title, description, body, prefix = "../../", script = "", repos
 
 function appPage(app, repositoryURL) {
   const mentions = [...(app.mentions ?? [])].sort((a, b) => b.episode - a.episode || b.date.localeCompare(a.date));
+  const latestMention = mentions[0] ?? null;
   const mentionsMarkup = mentions.length > 0 ? mentions.map((mention) => `
       <section class="mention-panel">
         <p class="eyebrow">Amigos do ADT</p>
@@ -157,6 +164,46 @@ function appPage(app, repositoryURL) {
         <button class="share-button button button-secondary" type="button" data-share-title="${escapeHTML(app.name)}" data-share-text="${escapeHTML(`${app.name}, apresentado em Amigos do Área de Transferência.`)}">Compartilhar</button>
       </div>
       <p class="share-status" aria-live="polite"></p>
+      <section class="share-studio" aria-labelledby="share-studio-title"
+        data-share-name="${escapeHTML(app.name)}"
+        data-share-developer="${escapeHTML(app.developer.name)}"
+        data-share-episode="${latestMention ? escapeHTML(latestMention.episode) : ""}"
+        data-share-episode-title="${latestMention ? escapeHTML(latestMention.title) : ""}"
+        data-share-episode-url="${latestMention ? escapeHTML(latestMention.url) : ""}"
+        data-share-icon="${app.icon?.path ? escapeHTML(`../../icons/${path.basename(app.icon.path)}`) : ""}">
+        <div class="share-studio-heading">
+          <p class="eyebrow">Compartilhe a descoberta</p>
+          <h2 id="share-studio-title">Leve esta menção para a sua timeline.</h2>
+          <p>Escolha um formato, ajuste a aparência e baixe uma arte pronta com o app e o episódio em que ele apareceu.</p>
+        </div>
+        <div class="share-studio-layout">
+          <div class="share-artwork-frame">
+            <canvas id="share-artwork" class="share-artwork" width="1200" height="630" aria-label="Prévia da arte de compartilhamento"></canvas>
+          </div>
+          <div class="share-controls">
+            <fieldset>
+              <legend>Formato</legend>
+              <div class="share-options" role="group" aria-label="Formato da arte">
+                <button type="button" class="share-option is-selected" data-format="web" aria-pressed="true">Web <span>1200×630</span></button>
+                <button type="button" class="share-option" data-format="instagram" aria-pressed="false">Instagram <span>1080×1350</span></button>
+                <button type="button" class="share-option" data-format="tiktok" aria-pressed="false">TikTok <span>1080×1920</span></button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Aparência</legend>
+              <div class="share-options share-theme-options" role="group" aria-label="Tema da arte">
+                <button type="button" class="share-option is-selected" data-share-theme="dark" aria-pressed="true">Escuro</button>
+                <button type="button" class="share-option" data-share-theme="light" aria-pressed="false">Claro</button>
+              </div>
+            </fieldset>
+            <div class="share-studio-actions">
+              <button id="download-share-artwork" class="button" type="button">Baixar arte</button>
+              <button id="share-share-artwork" class="button button-secondary" type="button">Compartilhar arte</button>
+            </div>
+            <p class="share-studio-status" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
       ${mentionsMarkup}
       ${moderation}
     </article>

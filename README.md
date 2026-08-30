@@ -16,7 +16,7 @@ Tudo no projeto é versionado em arquivo:
 - [Como funciona](#como-funciona)
 - [Como submeter um app](#como-submeter-um-app)
 - [Como moderar e publicar](#como-moderar-e-publicar)
-- [Como usar dados reais de bootstrap](#como-usar-dados-reais-de-bootstrap)
+- [Integrações externas](#integrações-externas)
 - [Estrutura do repositório](#estrutura-do-repositório)
 - [Como rodar localmente](#como-rodar-localmente)
 - [Comandos por objetivo](#comandos-por-objetivo)
@@ -35,7 +35,7 @@ Resumo objetivo:
   - páginas por app (`/apps/{slug}/`);
   - páginas por autor (`/author/{username}/`);
   - `dist/data/apps.json` com dados de catálogo e curtidas.
-- `npm run dev:data` serve `dist/`.
+- `npm run dev` serve `dist/`.
 - Workflow `publish-release` publica `dist/` no GitHub Pages.
 
 ## Como funciona
@@ -96,22 +96,14 @@ Resumo objetivo:
 
 Não há deploy automático em push. A publicação só sobe no evento de release.
 
-## Como usar dados reais de bootstrap
+## Integrações externas
 
-`data/bootstrap/adt-484-493.json` é o arquivo de entrada inicial.  
-O formato final do catálogo é `data/apps`.
+O site publicado é estático e não consulta a API do Gigahertz durante a navegação. A API é usada nos scripts de validação antes de um app entrar no catálogo:
 
-Comando para organizar dados reais no formato canônico:
-
-```sh
-npm run bootstrap:to-data
-```
-
-Esse comando:
-
-- cria/atualiza arquivos em `data/apps/`;
-- gera os registros já no padrão esperado pelo build;
-- preserva identidade por app via slug + número da Issue.
+- `scripts/submission.mjs` consulta `https://gigahertz.fm/api/podcasts/adt/{episódio}.json` para confirmar o episódio, título, data, permalink e notas públicas.
+- `scripts/submission.mjs` consulta `https://gigahertz.fm/podcasts/adt/{episódio}.txt` para verificar a menção no trecho “Amigos do Área de Transferência”.
+- Os resultados verificados são gravados como snapshot em `data/apps/*.json`, em `mentions[]`, com episódio, data, URL e evidências.
+- `scripts/github.mjs` e os scripts de publicação usam a API do GitHub para Issues, reações e Pages.
 
 Não comite `dist/` no fluxo de manutenção do catálogo; ele é gerado no build/release.
 
@@ -122,7 +114,6 @@ Não comite `dist/` no fluxo de manutenção do catálogo; ele é gerado no buil
 - `scripts/`
   - automações, integração com GitHub API e construção do site.
 - `data/`
-  - `bootstrap/` (entrada de seed)
   - `apps/` (catálogo canônico)
 - `public/icons/`
   - ícones versionados no repositório.
@@ -142,14 +133,12 @@ Não comite `dist/` no fluxo de manutenção do catálogo; ele é gerado no buil
 ### Primeiros passos
 
 ```sh
-npm run dev         # serve .preview (bootstrap-preview)
-npm run dev:data    # serve dist (catálogo real de data/apps)
+npm run dev         # serve dist (catálogo gerado de data/apps)
 ```
 
 Após rodar, abra:
 
-- `http://127.0.0.1:4173/` (`.preview`)
-- `http://127.0.0.1:4173/` com `dist` ativo quando usando `dev:data`
+- `http://127.0.0.1:4173/`
 
 ### Comandos de desenvolvimento
 
@@ -157,13 +146,9 @@ Após rodar, abra:
 - `npm run check`: valida sintaxe JS e scripts.
 - `npm run build:demo`: build com fixtures de teste.
 - `npm run build`: build oficial com `data/apps`.
-- `npm run bootstrap:to-data`: gera catálogo canônico a partir do bootstrap.
-- `npm run preview:real`: prévia local com dados reais.
 - `npm run seed:issues`: cria/associa issues reais no GitHub para apps existentes (sem `issueURL`) e atualiza `data/apps`.
   - Use `GITHUB_TOKEN` com escopo `issues: write`.
 - `npm run labels:setup`: cria/atualiza labels de workflow.
-- `npm run seed:catalog`: dispara seed completo.
-- `npm run seed:verify`: valida consistência do manifest/seed sem gravar.
 - `npm run likes:changed`: consulta reações do GitHub e detecta se os likes mudaram em relação ao `dist/data/apps.json`.
 
 ## Observações de arquitetura de produção

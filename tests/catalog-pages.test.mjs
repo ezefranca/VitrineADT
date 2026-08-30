@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { enrichCatalogApps } from "../scripts/catalog-pages.mjs";
+import { enrichCatalogApps, groupAppsByEpisode } from "../scripts/catalog-pages.mjs";
 
 test("não transforma o autor da submissão no desenvolvedor do aplicativo", () => {
   const [app] = enrichCatalogApps([{
@@ -43,4 +43,38 @@ test("usa o perfil GitHub informado do desenvolvedor", () => {
     source: "developer-profile",
     path: "author/arthurgivigir/"
   });
+});
+
+test("agrupa todos os apps por episódio e remove menções duplicadas", () => {
+  const apps = enrichCatalogApps([
+    {
+      id: "b",
+      name: "Beta",
+      developer: { name: "B" },
+      links: {},
+      mentions: [{ episode: 10, title: "Dez", date: "2026-01-02", url: "https://gigahertz.fm/podcasts/adt/10" }]
+    },
+    {
+      id: "a",
+      name: "Alpha",
+      developer: { name: "A" },
+      links: {},
+      mentions: [
+        { episode: 10, title: "Dez", date: "2026-01-02", url: "https://gigahertz.fm/podcasts/adt/10" },
+        { episode: 9, title: "Nove", date: "2025-12-20", url: "https://gigahertz.fm/podcasts/adt/9" }
+      ]
+    },
+    {
+      id: "c",
+      name: "Charlie",
+      developer: { name: "C" },
+      links: {},
+      mentions: [{ episode: 9, title: "Nove", date: "2025-12-20", url: "https://gigahertz.fm/podcasts/adt/9" }]
+    }
+  ]);
+
+  assert.deepEqual(groupAppsByEpisode(apps).map((episode) => [episode.episode, episode.apps.map((app) => app.name)]), [
+    [10, ["Alpha", "Beta"]],
+    [9, ["Alpha", "Charlie"]]
+  ]);
 });

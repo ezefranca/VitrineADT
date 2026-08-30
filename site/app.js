@@ -109,9 +109,7 @@ function createCard(app) {
   if (mention) {
     episodeContainer.append(document.createTextNode("Amigos do ADT · "));
     const episodeLink = document.createElement("a");
-    episodeLink.href = mention.url;
-    episodeLink.target = "_blank";
-    episodeLink.rel = "noopener noreferrer";
+    episodeLink.href = `./episodes/${encodeURIComponent(String(mention.episode))}/`;
     episodeLink.textContent = `episódio ${mention.episode}`;
     episodeContainer.append(episodeLink, document.createTextNode(` · ${dateFormatter.format(new Date(`${mention.date}T00:00:00Z`))}`));
   }

@@ -37,7 +37,8 @@ Resumo objetivo:
 - `scripts/build-site.mjs` gera `dist/` com:
   - HTML da home + páginas institucionais;
   - páginas por app (`/apps/{slug}/`);
-- páginas por desenvolvedor ou proprietário do repositório-fonte (`/author/{username}/`);
+  - páginas por desenvolvedor ou proprietário do repositório-fonte (`/author/{username}/`);
+  - páginas por episódio com todos os apps apresentados (`/episodes/{episode}/`);
   - `dist/data/apps.json` com dados de catálogo e curtidas.
 - `npm run dev` serve `dist/`.
 - Workflow `publish-release` publica `dist/` no GitHub Pages.

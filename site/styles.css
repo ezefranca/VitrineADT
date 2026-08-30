@@ -1338,6 +1338,125 @@ footer a:hover {
   color: var(--secondary);
 }
 
+.episode-title-link:hover {
+  color: var(--accent);
+}
+
+.mention-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.episode-page {
+  max-width: 1120px;
+}
+
+.episode-hero {
+  padding-bottom: 58px;
+}
+
+.episode-hero h1 {
+  text-wrap: balance;
+}
+
+.episode-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.episode-apps {
+  padding: 68px 0 112px;
+}
+
+.episode-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 32px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.episode-section-heading .eyebrow {
+  margin-bottom: 10px;
+}
+
+.episode-section-heading h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  letter-spacing: -0.055em;
+}
+
+.episode-section-heading > p {
+  max-width: 330px;
+  margin: 0;
+  color: var(--secondary);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.episode-app-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 42px;
+}
+
+.episode-app-card {
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.episode-app-card-main {
+  position: relative;
+  display: grid;
+  grid-template-columns: 78px 1fr 22px;
+  align-items: start;
+  gap: 18px;
+}
+
+.episode-app-card-main .app-icon {
+  width: 78px;
+  height: 78px;
+  border-radius: 19px;
+}
+
+.episode-app-card-copy h2 {
+  margin: 1px 0 5px;
+  font-size: 1.3rem;
+  letter-spacing: -0.035em;
+}
+
+.episode-app-card-copy p {
+  margin: 0;
+  color: var(--secondary);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.episode-app-card-copy .episode-app-developer {
+  margin-bottom: 8px;
+  color: var(--tertiary);
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.episode-app-arrow {
+  padding-top: 2px;
+  color: var(--tertiary);
+  font-size: 1.15rem;
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.episode-app-card-main:hover .episode-app-arrow {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
 .detail-secondary-actions {
   margin-top: 28px;
   color: var(--tertiary);
@@ -1672,6 +1791,35 @@ footer a:hover {
   .share-context-links {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .episode-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .episode-section-heading > p {
+    text-align: left;
+  }
+
+  .episode-app-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .episode-app-card-main {
+    grid-template-columns: 64px 1fr 18px;
+    gap: 14px;
+  }
+
+  .episode-app-card-main .app-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+  }
+
+  .episode-app-card-copy h2 {
+    font-size: 1.15rem;
   }
 
   .not-found-page {

@@ -39,6 +39,7 @@ O fluxo de produção funciona assim:
   - Gera páginas estáticas:
   - `/apps/{slug}/` (detalhes do app)
   - `/author/{username}/` (agregador pelo perfil do desenvolvedor ou proprietário do repositório-fonte no GitHub).
+  - `/episodes/{episode}/` (todos os apps apresentados em um episódio; cada app aparece uma única vez e os cards são ordenados por nome).
 - `mark-queued.mjs`, `mark-published.mjs`, `mark-import-failed.mjs`
   - Sincronizam estado da publicação e comentários de retorno.
 - `mark-*`, `setup-labels.mjs`, `github.mjs`, `images.mjs`
@@ -141,6 +142,7 @@ Durante o build, esses registros viram o dataset final (`dist/data/apps.json`) j
 - Home: `/`
 - App: `/apps/{slug}/`
 - Desenvolvedor ou autor do repositório-fonte: `/author/{username}/`
+- Episódio: `/episodes/{episode}/`
 - Páginas institucionais em `/sobre.html`, `/como-funciona.html`, `/termos.html`, etc.
 
 ## Integrações externas

@@ -134,6 +134,10 @@ function shell({ title, description, body, prefix = "../../", script = "", repos
 </html>`;
 }
 
+function episodePath(episode, prefix = "../../") {
+  return `${prefix}episodes/${encodeURIComponent(String(episode))}/`;
+}
+
 function appPage(app, repositoryURL) {
   const mentions = [...(app.mentions ?? [])].sort(compareMentions);
   const mostRecentMention = latestMention(app);
@@ -144,9 +148,12 @@ function appPage(app, repositoryURL) {
   const mentionsMarkup = mentions.length > 0 ? mentions.map((mention) => `
       <section class="mention-panel">
         <p class="eyebrow">Amigos do ADT</p>
-        <h2>Apresentado no episódio ${mention.episode}</h2>
+        <h2><a class="episode-title-link" href="${episodePath(mention.episode)}">Apresentado no episódio ${mention.episode}</a></h2>
         <p>${escapeHTML(mention.title)} · ${escapeHTML(mention.date)}</p>
-        <a class="text-link" href="${escapeHTML(mention.url)}" target="_blank" rel="noopener noreferrer">Ouvir episódio ${escapeHTML(mention.episode)} <span aria-hidden="true">↗</span></a>
+        <div class="mention-links">
+          <a class="text-link" href="${episodePath(mention.episode)}">Ver os apps deste episódio <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="${escapeHTML(mention.url)}" target="_blank" rel="noopener noreferrer">Ouvir episódio ${escapeHTML(mention.episode)} <span aria-hidden="true">↗</span></a>
+        </div>
       </section>`).join("") : "";
   const author = app.author
     ? `<a href="../../${escapeHTML(app.author.path)}" title="Ver aplicativos associados a @${escapeHTML(app.author.username)}">${escapeHTML(app.developer.name)}</a>`
@@ -214,6 +221,68 @@ function appPage(app, repositoryURL) {
   return shell({ title: `${app.name} — VitrineADT`, description: app.description, body, script: "share.js", repositoryURL });
 }
 
+export function groupAppsByEpisode(apps) {
+  const episodes = new Map();
+  for (const app of apps) {
+    for (const mention of app.mentions ?? []) {
+      const episode = Number(mention.episode);
+      if (!Number.isInteger(episode) || episode < 1) continue;
+      const entry = episodes.get(episode) ?? {
+        episode,
+        title: String(mention.title ?? `Episódio ${episode}`),
+        date: String(mention.date ?? ""),
+        url: String(mention.url ?? ""),
+        apps: []
+      };
+      if (!entry.apps.some((item) => item.id === app.id)) entry.apps.push(app);
+      episodes.set(episode, entry);
+    }
+  }
+  return [...episodes.values()]
+    .map((episode) => ({
+      ...episode,
+      apps: [...episode.apps].sort((left, right) => left.name.localeCompare(right.name, "pt-BR"))
+    }))
+    .sort((left, right) => right.episode - left.episode);
+}
+
+function episodePage(episode, repositoryURL) {
+  const countLabel = episode.apps.length === 1 ? "1 aplicativo apresentado" : `${episode.apps.length} aplicativos apresentados`;
+  const cards = episode.apps.map((app) => `
+    <article class="episode-app-card">
+      <a class="episode-app-card-main" href="../../${escapeHTML(app.detailPath)}">
+        <div class="app-icon" aria-hidden="true">${iconMarkup(app, "../../")}</div>
+        <div class="episode-app-card-copy">
+          <h2>${escapeHTML(app.name)}</h2>
+          <p class="episode-app-developer">por ${escapeHTML(app.developer?.name ?? "Desenvolvedor independente")}</p>
+          <p>${escapeHTML(app.description)}</p>
+        </div>
+        <span class="episode-app-arrow" aria-hidden="true">↗</span>
+      </a>
+    </article>`).join("");
+  const description = `${countLabel} no episódio ${episode.episode} do Área de Transferência.`;
+  const body = `<main id="main-content" class="content-page episode-page">
+    <a class="back-link" href="../../#recentes"><span aria-hidden="true">←</span> Últimas menções</a>
+    <header class="page-hero episode-hero">
+      <p class="eyebrow">Área de Transferência</p>
+      <h1>Episódio ${episode.episode}</h1>
+      <p class="page-lede">${escapeHTML(episode.title)}${episode.date ? ` · ${escapeHTML(episode.date)}` : ""}</p>
+      <div class="episode-hero-actions">
+        ${episode.url ? `<a class="button" href="${escapeHTML(episode.url)}" target="_blank" rel="noopener noreferrer">Ouvir episódio <span aria-hidden="true">↗</span></a>` : ""}
+        <a class="text-link" href="../../#todos">Explorar todos os apps <span aria-hidden="true">→</span></a>
+      </div>
+    </header>
+    <section class="episode-apps" aria-labelledby="episode-apps-title">
+      <div class="episode-section-heading">
+        <div><p class="eyebrow">Apps apresentados</p><h2 id="episode-apps-title">${escapeHTML(countLabel)}</h2></div>
+        <p>Cada projeto aparece aqui com o vínculo para sua página na VitrineADT.</p>
+      </div>
+      <div class="episode-app-grid">${cards}</div>
+    </section>
+  </main>`;
+  return shell({ title: `Episódio ${episode.episode} — VitrineADT`, description, body, repositoryURL });
+}
+
 function authorPage(author, apps, repositoryURL) {
   const cards = apps.map((app) => `<article class="author-app-card">
     <div class="app-icon" aria-hidden="true">${iconMarkup(app)}</div>
@@ -248,5 +317,11 @@ export async function generateCatalogPages({ outputDirectory, apps, repositoryUR
     const directory = path.join(outputDirectory, "author", key);
     await mkdir(directory, { recursive: true });
     await writeFile(path.join(directory, "index.html"), authorPage(group.author, group.apps, repositoryURL));
+  }
+
+  for (const episode of groupAppsByEpisode(apps)) {
+    const directory = path.join(outputDirectory, "episodes", String(episode.episode));
+    await mkdir(directory, { recursive: true });
+    await writeFile(path.join(directory, "index.html"), episodePage(episode, repositoryURL));
   }
 }

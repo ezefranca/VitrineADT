@@ -23,8 +23,25 @@ const template = document.querySelector("#app-card-template");
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
 const timeFormatter = new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "UTC" });
 
+function compareMentions(a, b) {
+  const episodeA = Number(a?.episode);
+  const episodeB = Number(b?.episode);
+  const episodeDifference = (Number.isFinite(episodeB) ? episodeB : -1) - (Number.isFinite(episodeA) ? episodeA : -1);
+  if (episodeDifference !== 0) return episodeDifference;
+  return String(b?.date ?? "").localeCompare(String(a?.date ?? ""));
+}
+
 function latestMention(app) {
-  return [...(app.mentions ?? [])].sort((a, b) => Number(b.episode ?? 0) - Number(a.episode ?? 0) || String(b.date ?? "").localeCompare(String(a.date ?? "")))[0];
+  return [...(app.mentions ?? [])].sort(compareMentions)[0] ?? null;
+}
+
+function compareAppsByLatestMention(a, b) {
+  const aMention = latestMention(a);
+  const bMention = latestMention(b);
+  if (!aMention && !bMention) return 0;
+  if (!aMention) return 1;
+  if (!bMention) return -1;
+  return compareMentions(aMention, bMention);
 }
 
 function initials(name) {
@@ -242,8 +259,8 @@ async function start() {
   if (catalog.notice) previewNotice.textContent = catalog.notice;
   previewNotice.hidden = !catalog.demo && !catalog.preview;
 
-  const recent = [...state.apps].sort((a, b) => Number(latestMention(b)?.episode ?? 0) - Number(latestMention(a)?.episode ?? 0) || (latestMention(b)?.date ?? "").localeCompare(latestMention(a)?.date ?? ""));
-  const popular = [...state.apps].sort((a, b) => (b.likes ?? 0) - (a.likes ?? 0) || Number(latestMention(b)?.episode ?? 0) - Number(latestMention(a)?.episode ?? 0) || (latestMention(b)?.date ?? "").localeCompare(latestMention(a)?.date ?? ""));
+  const recent = [...state.apps].sort(compareAppsByLatestMention);
+  const popular = [...state.apps].sort((a, b) => (b.likes ?? 0) - (a.likes ?? 0) || compareAppsByLatestMention(a, b));
   const prominent = new Set([...recent.slice(0, 4), ...popular.filter((app) => app.likes > 0).slice(0, 4)].map((app) => app.id));
   const discoveryPool = state.apps.filter((app) => !prominent.has(app.id));
   const discovery = randomShuffle(discoveryPool.length >= 3 ? discoveryPool : state.apps);

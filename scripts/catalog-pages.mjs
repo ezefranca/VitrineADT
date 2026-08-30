@@ -1,6 +1,9 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { compareMentions, latestMention } from "./mention-order.mjs";
 import { slugify } from "./submission.mjs";
+
+const SITE_ORIGIN = "https://vitrineadt.ezequiel.app";
 
 const IGNORED_SUBMITTERS = new Set(["", "unknown", "demo", "github-actions[bot]", "catalog-curation"]);
 
@@ -128,8 +131,12 @@ function shell({ title, description, body, prefix = "../../", script = "", repos
 }
 
 function appPage(app, repositoryURL) {
-  const mentions = [...(app.mentions ?? [])].sort((a, b) => b.episode - a.episode || b.date.localeCompare(a.date));
-  const latestMention = mentions[0] ?? null;
+  const mentions = [...(app.mentions ?? [])].sort(compareMentions);
+  const mostRecentMention = latestMention(app);
+  const pageURL = `${SITE_ORIGIN}/${app.detailPath}`;
+  const shareText = mostRecentMention
+    ? `Meu aplicativo ${app.name} foi mencionado no ADT ${mostRecentMention.episode}. Confira: ${pageURL}\nOuça o episódio: ${mostRecentMention.url}`
+    : `Meu aplicativo ${app.name} foi mencionado no Área de Transferência. Confira: ${pageURL}`;
   const mentionsMarkup = mentions.length > 0 ? mentions.map((mention) => `
       <section class="mention-panel">
         <p class="eyebrow">Amigos do ADT</p>
@@ -161,48 +168,33 @@ function appPage(app, repositoryURL) {
       <div class="app-profile-actions">
         <a class="button" href="${escapeHTML(app.links.website)}" target="_blank" rel="noopener noreferrer">Abrir o aplicativo <span aria-hidden="true">↗</span></a>
         ${issueURL ? `<a class="button button-secondary app-like-link" href="${escapeHTML(issueURL)}" target="_blank" rel="noopener noreferrer" aria-label="Curtir ${escapeHTML(app.name)} no GitHub. ${likesCount} curtidas">👍 Curtidas: <span class="app-like-count">${likesCount}</span></a>` : ""}
-        <button class="share-button button button-secondary" type="button" data-share-title="${escapeHTML(app.name)}" data-share-text="${escapeHTML(`${app.name}, apresentado em Amigos do Área de Transferência.`)}">Compartilhar</button>
       </div>
-      <p class="share-status" aria-live="polite"></p>
-      <section class="share-studio" aria-labelledby="share-studio-title"
-        data-share-name="${escapeHTML(app.name)}"
-        data-share-developer="${escapeHTML(app.developer.name)}"
-        data-share-episode="${latestMention ? escapeHTML(latestMention.episode) : ""}"
-        data-share-episode-title="${latestMention ? escapeHTML(latestMention.title) : ""}"
-        data-share-episode-url="${latestMention ? escapeHTML(latestMention.url) : ""}"
-        data-share-icon="${app.icon?.path ? escapeHTML(`../../icons/${path.basename(app.icon.path)}`) : ""}">
-        <div class="share-studio-heading">
-          <p class="eyebrow">Compartilhe a descoberta</p>
-          <h2 id="share-studio-title">Leve esta menção para a sua timeline.</h2>
-          <p>Escolha um formato, ajuste a aparência e baixe uma arte pronta com o app e o episódio em que ele apareceu.</p>
+      <section class="share-panel" aria-labelledby="share-panel-title"
+        data-share-page-url="${escapeHTML(pageURL)}">
+        <div class="share-panel-heading">
+          <p class="eyebrow">Compartilhe a menção</p>
+          <h2 id="share-panel-title">Conte que seu projeto apareceu no ADT.</h2>
+          <p>Use a mensagem pronta ou ajuste o texto antes de publicar. A página do app e o episódio ficam logo abaixo.</p>
         </div>
-        <div class="share-studio-layout">
-          <div class="share-artwork-frame">
-            <canvas id="share-artwork" class="share-artwork" width="1200" height="630" aria-label="Prévia da arte de compartilhamento"></canvas>
-          </div>
-          <div class="share-controls">
-            <fieldset>
-              <legend>Formato</legend>
-              <div class="share-options" role="group" aria-label="Formato da arte">
-                <button type="button" class="share-option is-selected" data-format="web" aria-pressed="true">Web <span>1200×630</span></button>
-                <button type="button" class="share-option" data-format="instagram" aria-pressed="false">Instagram <span>1080×1350</span></button>
-                <button type="button" class="share-option" data-format="tiktok" aria-pressed="false">TikTok <span>1080×1920</span></button>
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend>Aparência</legend>
-              <div class="share-options share-theme-options" role="group" aria-label="Tema da arte">
-                <button type="button" class="share-option is-selected" data-share-theme="dark" aria-pressed="true">Escuro</button>
-                <button type="button" class="share-option" data-share-theme="light" aria-pressed="false">Claro</button>
-              </div>
-            </fieldset>
-            <div class="share-studio-actions">
-              <button id="download-share-artwork" class="button" type="button">Baixar arte</button>
-              <button id="share-share-artwork" class="button button-secondary" type="button">Compartilhar arte</button>
-            </div>
-            <p class="share-studio-status" aria-live="polite"></p>
-          </div>
+        <label class="share-message-field" for="share-message">
+          <span>Mensagem</span>
+          <textarea id="share-message" rows="3">${escapeHTML(shareText)}</textarea>
+        </label>
+        <div class="share-panel-actions">
+          <button class="share-button button" type="button">Compartilhar</button>
+          <button class="copy-share-button button button-secondary" type="button">Copiar mensagem</button>
         </div>
+        <nav class="social-links" aria-label="Compartilhar nas redes sociais">
+          <a class="social-link" data-network="whatsapp" href="#">WhatsApp <span aria-hidden="true">↗</span></a>
+          <a class="social-link" data-network="bluesky" href="#">Bluesky <span aria-hidden="true">↗</span></a>
+          <a class="social-link" data-network="x" href="#">X <span aria-hidden="true">↗</span></a>
+          <a class="social-link" data-network="linkedin" href="#">LinkedIn <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="share-context-links">
+          <a href="./" data-share-page-link>Página do app <span aria-hidden="true">↗</span></a>
+          ${mostRecentMention ? `<a href="${escapeHTML(mostRecentMention.url)}" target="_blank" rel="noopener noreferrer">Episódio ${escapeHTML(mostRecentMention.episode)} <span aria-hidden="true">↗</span></a>` : ""}
+        </div>
+        <p class="share-status" aria-live="polite"></p>
       </section>
       ${mentionsMarkup}
       ${moderation}

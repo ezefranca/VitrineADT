@@ -19,7 +19,7 @@
     root.dataset.theme = nextTheme;
     root.style.colorScheme = nextTheme;
     const themeColor = document.querySelector('meta[name="theme-color"]');
-    if (themeColor) themeColor.content = nextTheme === "dark" ? "#101012" : "#f5f5f7";
+    if (themeColor) themeColor.content = nextTheme === "dark" ? "#141416" : "#f5f5f7";
     if (persist) {
       try {
         localStorage.setItem(storageKey, nextTheme);

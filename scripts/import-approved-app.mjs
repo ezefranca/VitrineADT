@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { readdir, readFile, mkdir, writeFile, appendFile } from "node:fs/promises";
 import path from "node:path";
 import { githubRequest, repositoryFromEnvironment } from "./github.mjs";
+import { compareMentions } from "./mention-order.mjs";
 import { isLikelySameApp, slugify, validateSubmission } from "./submission.mjs";
 import { downloadIcon, resolveIconURL } from "./images.mjs";
 
@@ -42,7 +43,7 @@ function upsertMention(mentions, mention) {
   const existing = next.some((item) => mentionKey(item) === mentionKey(mention));
   if (existing) return next;
   next.push(mention);
-  next.sort((a, b) => b.episode - a.episode || b.date.localeCompare(a.date));
+  next.sort(compareMentions);
   return next;
 }
 
@@ -138,7 +139,7 @@ async function main() {
     }
   }
 
-  record.mentions.sort((a, b) => b.episode - a.episode || b.date.localeCompare(a.date));
+  record.mentions.sort(compareMentions);
   await writeFile(destination, `${JSON.stringify(record, null, 2)}\n`);
   await writeOutput({ app_id: id, issue_number: issueNumber, record_path: path.relative(ROOT, destination) });
   console.log(JSON.stringify({ id, issue: issueNumber, existing: Boolean(existing), record: path.relative(ROOT, destination) }));

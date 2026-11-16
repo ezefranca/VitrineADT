@@ -8,11 +8,12 @@
     "url": ""
   },
   "platforms": [
-    "ios"
+    "ios",
+    "ipados"
   ],
   "links": {
-    "website": "https://testflight.apple.com/join/EHXNZxTR",
-    "appStore": "",
+    "website": "https://derdiedasapp.de",
+    "appStore": "https://apps.apple.com/us/app/derdiedas-the-german-articles/id6798369551",
     "googlePlay": "",
     "source": ""
   },
@@ -44,7 +45,7 @@
     "approvedAt": "2026-08-29T14:35:36.145Z"
   },
   "likes": 0,
-  "updatedAt": "2026-08-29T14:35:36.145Z",
+  "updatedAt": "2026-10-09T12:39:00.189Z",
   "source": {
     "kind": "gigahertz-api"
   }
